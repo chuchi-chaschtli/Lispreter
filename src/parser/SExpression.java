@@ -6,7 +6,7 @@ package parser;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.StringUtils;
+import util.StringUtils;
 import exception.NodeInitException;
 
 /**

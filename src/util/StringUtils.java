@@ -1,7 +1,7 @@
 /**
  * StringUtils.java is a part of Lispreter. 
  */
-package utils;
+package util;
 
 import java.util.ArrayList;
 import java.util.List;
