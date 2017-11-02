@@ -15,6 +15,8 @@ public enum Pat {
 	ATOM_NUM("[\\d\\+\\-]?[\\d]*"),
 	LETTER("[a-zA-Z]"),
 	LITERAL("[a-zA-Z0-9]+?"),
+	PAREN_OPEN("[({\\[]"),
+	PAREN_CLOSE("[)}\\]]"),
 	SYMBOL("[().]"),
 	VALID_FUNC("[a-zA-Z]{1}[a-zA-Z0-9]*"),
 	WHITESPACE("[\\s]+?");

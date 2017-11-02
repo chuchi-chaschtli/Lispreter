@@ -6,6 +6,7 @@ package parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import parser.util.Pat;
 import util.StringUtils;
 import exception.NodeInitException;
 
@@ -84,16 +85,16 @@ public class SExpression extends Node {
 	 * @param tokens
 	 */
 	private void makeCons(List<String> tokens) {
-		if (tokens.size() > 0 && tokens.get(0).matches("[(]")) {
+		if (tokens.size() > 0 && Pat.PAREN_OPEN.matches(tokens.get(0))) {
 			int index = 1;
 			int dataBegin = 3;
 			if (tokens.get(index) == "(") {
 				int numClausesOpen = 1;
 				while (numClausesOpen > 0 && index < tokens.size()) {
 					index++;
-					if (tokens.get(index).equals("(")) {
+					if (Pat.PAREN_OPEN.matches(tokens.get(index))) {
 						numClausesOpen++;
-					} else if (tokens.get(index).equals(")")) {
+					} else if (Pat.PAREN_CLOSE.matches(tokens.get(index))) {
 						numClausesOpen--;
 					}
 				}
