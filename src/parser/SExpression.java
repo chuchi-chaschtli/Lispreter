@@ -10,32 +10,65 @@ import util.StringUtils;
 import exception.NodeInitException;
 
 /**
+ * Representation for S-Expressions. Construction and evaluation from various
+ * input sources are also handled. Stipulation for list and dot notation is also
+ * managed.
+ * 
  * @author Anand
  *
  */
 public class SExpression extends Node {
 
+	// address and data tokens
 	protected Node data, addr;
-
 	protected List<String> dataTokens, addrTokens;
 
+	/**
+	 * Constructs an S-Expression from a token list. Uses our cons builder to
+	 * validate input.
+	 * 
+	 * @param tokens
+	 *            the list of tokens to build
+	 */
 	public SExpression(List<String> tokens) {
 		makeCons(tokens);
 	}
 
+	/**
+	 * Constructs an S-Expression from a given node. Essentially a casting
+	 * operation.
+	 * 
+	 * @param n
+	 *            the Node to try and force into an S-Expression
+	 */
 	public SExpression(Node n) {
 		this(n.tokens);
 	}
 
+	/**
+	 * Builds an S-Expression from two nodes, by making one an address and
+	 * another a data object. Accordingly, the tokens are then updated.
+	 * 
+	 * @param addr
+	 *            the new address Node.
+	 * @param data
+	 *            the new data Node.
+	 */
 	public SExpression(Node addr, Node data) {
 		this.addr = addr;
 		this.data = data;
 		this.addrTokens = addr.tokens;
 		this.dataTokens = data.tokens;
-		buildTokens(addr.tokens, data.tokens);
+		buildTokens();
 
 	}
 
+	/**
+	 * Deep-copy constructor for an S-Expression.
+	 * 
+	 * @param sexp
+	 *            the to-copy S-Expression.
+	 */
 	public SExpression(SExpression sexp) {
 		data = Node.makeNode(sexp.dataTokens);
 		addr = Node.makeNode(sexp.addrTokens);
@@ -43,6 +76,13 @@ public class SExpression extends Node {
 		addrTokens = new ArrayList<String>(sexp.addrTokens);
 	}
 
+	/**
+	 * Appropriately updates tokens, determines address and data tokens, and
+	 * validifies the representation of a given S-Expression, in the form of a
+	 * string list.
+	 * 
+	 * @param tokens
+	 */
 	private void makeCons(List<String> tokens) {
 		if (tokens.size() > 0 && tokens.get(0).matches("[(]")) {
 			int index = 1;
@@ -67,14 +107,18 @@ public class SExpression extends Node {
 			dataTokens = new ArrayList<String>(tokens.subList(index + 1,
 					tokens.size() - 1));
 			addrTokens = new ArrayList<String>(tokens.subList(1, index));
-			buildTokens(addrTokens, dataTokens);
+			buildTokens();
 			return;
 		}
 		throw new NodeInitException("Invalid S-Expression provided : "
 				+ tokens.toString());
 	}
 
-	private void buildTokens(List<String> addrTokens, List<String> dataTokens) {
+	/**
+	 * Formats the list of address and data tokens with surrounding parentheses,
+	 * and separates the address and data with a period.
+	 */
+	private void buildTokens() {
 		tokens.add("(");
 		tokens.addAll(addrTokens);
 		tokens.add(".");
@@ -92,22 +136,26 @@ public class SExpression extends Node {
 		// TODO IMPLEMENT
 		return null;
 	}
-	
+
+	/**
+	 * Attempts to print this object in list notation, but defaults to dot
+	 * notation.
+	 */
 	@Override
 	public String toString() {
 		if (isList()) {
 			List<String> l = new ArrayList<String>();
 			SExpression tmp = this;
 			while (tmp.isList()) {
-				l.add(tmp.addr.toString());
 				try {
+					l.add(tmp.addr.toString());
 					tmp = new SExpression(tmp.dataTokens);
-				} catch (Exception e) {
+				}
+				catch (Exception e) {
 					break;
 				}
 			}
-			String str = "(" + StringUtils.concat(l, " ") + ")";
-			return str;
+			return "(" + StringUtils.concat(l, " ") + ")";
 		}
 		return "(" + addr.toString() + "." + data.toString() + ")";
 	}
