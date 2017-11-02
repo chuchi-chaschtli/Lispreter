@@ -20,8 +20,8 @@ import exception.NodeInitException;
 public class SExpression extends Node {
 
 	// address and data tokens
-	protected Node data, addr;
-	protected List<String> dataTokens, addrTokens;
+	private Node data, addr;
+	private List<String> dataTokens, addrTokens;
 
 	/**
 	 * Constructs an S-Expression from a token list. Uses our cons builder to
@@ -158,5 +158,41 @@ public class SExpression extends Node {
 			return "(" + StringUtils.concat(l, " ") + ")";
 		}
 		return "(" + addr.toString() + "." + data.toString() + ")";
+	}
+
+	/**
+	 * Grabs the address node.
+	 * 
+	 * @return
+	 */
+	protected Node getAddr() {
+		return addr;
+	}
+
+	/**
+	 * Grabs the data node.
+	 * 
+	 * @return
+	 */
+	protected Node getData() {
+		return data;
+	}
+
+	/**
+	 * Grabs the address tokens as a copy list.
+	 * 
+	 * @return
+	 */
+	protected List<String> getAddrTokens() {
+		return new ArrayList<String>(addrTokens);
+	}
+
+	/**
+	 * Grabs the data tokens as a copy list.
+	 * 
+	 * @return
+	 */
+	protected List<String> getDataTokens() {
+		return new ArrayList<String>(dataTokens);
 	}
 }
