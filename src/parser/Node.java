@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import parser.util.Pat;
 import exception.NodeInitException;
 
 /**
@@ -35,8 +36,8 @@ public abstract class Node {
 	static Node makeNode(List<String> list) {
 		if (list.size() > 0) {
 			String first = list.get(0);
-			if (first.matches("[(]")) {
-				// Construct a new S-Expression
+			if (Pat.PAREN_OPEN.matches(first)) {
+				return new SExpression(list);
 			} else {
 				return new Atom(first);
 			}
