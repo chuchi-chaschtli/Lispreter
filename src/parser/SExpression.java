@@ -103,11 +103,11 @@ public class SExpression extends Node {
 			index = dataBegin > 3 ? tokens.subList(dataBegin, tokens.size())
 					.indexOf(".") : 2;
 
-			data = Node.makeNode(dataTokens);
-			addr = Node.makeNode(addrTokens);
 			dataTokens = new ArrayList<String>(tokens.subList(index + 1,
 					tokens.size() - 1));
 			addrTokens = new ArrayList<String>(tokens.subList(1, index));
+			data = Node.makeNode(dataTokens);
+			addr = Node.makeNode(addrTokens);
 			buildTokens();
 			return;
 		}
@@ -166,7 +166,7 @@ public class SExpression extends Node {
 	 * 
 	 * @return
 	 */
-	protected Node getAddr() {
+	public Node getAddr() {
 		return addr;
 	}
 
@@ -175,7 +175,7 @@ public class SExpression extends Node {
 	 * 
 	 * @return
 	 */
-	protected Node getData() {
+	public Node getData() {
 		return data;
 	}
 
@@ -184,7 +184,7 @@ public class SExpression extends Node {
 	 * 
 	 * @return
 	 */
-	protected List<String> getAddrTokens() {
+	public List<String> getAddrTokens() {
 		return new ArrayList<String>(addrTokens);
 	}
 
@@ -193,7 +193,7 @@ public class SExpression extends Node {
 	 * 
 	 * @return
 	 */
-	protected List<String> getDataTokens() {
+	public List<String> getDataTokens() {
 		return new ArrayList<String>(dataTokens);
 	}
 }
