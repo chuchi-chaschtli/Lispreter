@@ -4,6 +4,7 @@
 package parser;
 
 import parser.util.Pat;
+import exception.EnvironmentException;
 import exception.NodeInitException;
 
 /**
@@ -64,8 +65,12 @@ public class Atom extends Node {
 
 	@Override
 	public Node eval() {
-		// TODO: check if the literal is defined by the environment, then get
-		// value
+		if (env == null) {
+			throw new EnvironmentException("The node specified has no environment");
+		}
+		if (env.isDefinedV(lit)) {
+			return env.getVariableValue(lit);
+		}
 		return this;
 	}
 
