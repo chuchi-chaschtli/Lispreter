@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 import parser.util.Pat;
+import exception.EnvironmentException;
 import exception.NodeInitException;
 
 /**
@@ -23,6 +24,7 @@ import exception.NodeInitException;
 public abstract class Node {
 
 	protected List<String> tokens = new ArrayList<>();
+	protected Environment env;
 
 	/**
 	 * Employs the factory pattern to create a new atom or s-expression.
@@ -79,8 +81,28 @@ public abstract class Node {
 	 * Evaluates this node.
 	 * 
 	 * @return the Node after evaluation.
+	 * @throws EnvironmentException if the node has no environment
 	 */
 	public abstract Node eval();
+
+	/**
+	 * Sets the environment for this node.
+	 * 
+	 * @param env
+	 *            the new Environment.
+	 */
+	public void setEnvironment(Environment env) {
+		this.env = env;
+	}
+
+	/**
+	 * Grabs this node's environment.
+	 * 
+	 * @return
+	 */
+	public Environment getEnvironment() {
+		return env;
+	}
 
 	@Override
 	public int hashCode() {
