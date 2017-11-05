@@ -63,7 +63,7 @@ public class Atom extends Node {
 	}
 
 	@Override
-	Node eval() {
+	public Node eval() {
 		// TODO: check if the literal is defined by the environment, then get
 		// value
 		return this;

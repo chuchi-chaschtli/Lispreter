@@ -33,7 +33,7 @@ public abstract class Node {
 	 * @throws NodeInitException
 	 *             if the node is empty, or the factory fails.
 	 */
-	static Node makeNode(List<String> list) {
+	public static Node makeNode(List<String> list) {
 		if (list.size() > 0) {
 			String first = list.get(0);
 			if (Pat.PAREN_OPEN.matches(first)) {
@@ -52,7 +52,7 @@ public abstract class Node {
 	 *            the boolean literal.
 	 * @return a new Atom
 	 */
-	static Node makeNode(boolean bool) {
+	public static Node makeNode(boolean bool) {
 		return new Atom(bool);
 	}
 
@@ -63,7 +63,7 @@ public abstract class Node {
 	 *            the integer literal.
 	 * @return a new Atom
 	 */
-	static Node makeNode(int i) {
+	public static Node makeNode(int i) {
 		return new Atom(i);
 	}
 
@@ -80,7 +80,7 @@ public abstract class Node {
 	 * 
 	 * @return the Node after evaluation.
 	 */
-	abstract Node eval();
+	public abstract Node eval();
 
 	@Override
 	public int hashCode() {

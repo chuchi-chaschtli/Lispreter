@@ -133,7 +133,7 @@ public class SExpression extends Node {
 	}
 
 	@Override
-	Node eval() {
+	public Node eval() {
 		// TODO IMPLEMENT
 		return null;
 	}
