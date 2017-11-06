@@ -207,4 +207,13 @@ public class Environment {
 	public Node invokePrim(String name, SExpression sexp) {
 		return handler.callFunc(name, sexp);
 	}
+
+	/**
+	 * Grabs the PrimitiveHandler.
+	 * 
+	 * @return a PrimitiveHandler object.
+	 */
+	public PrimitiveHandler getHandler() {
+		return handler;
+	}
 }

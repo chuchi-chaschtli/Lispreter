@@ -8,6 +8,7 @@ import interpreter.parser.SExpression;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -143,5 +144,14 @@ public class PrimitiveHandler {
 		catch (SecurityException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Returns a read-only map of the functions defined.
+	 * 
+	 * @return a map of String -> Method.
+	 */
+	public Map<String, Method> getRegisteredFunctions() {
+		return Collections.unmodifiableMap(primitives);
 	}
 }

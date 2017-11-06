@@ -5,6 +5,7 @@ package interpreter.parser;
 
 import interpreter.exception.NodeInitException;
 import interpreter.parser.prim.BoolFuncs;
+import interpreter.parser.prim.ListFuncs;
 import interpreter.parser.util.Pat;
 import interpreter.util.StringUtils;
 
@@ -159,7 +160,7 @@ public class SExpression extends Node {
 			}
 			formals = sexp;
 		} else if (ad.matches("DEFUN")) {
-			// TODO: DEFUN
+			return ListFuncs.defun((SExpression) data);
 		} else {
 			formals = (SExpression) data;
 		}
