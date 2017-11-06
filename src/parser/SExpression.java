@@ -6,6 +6,7 @@ package parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import parser.prim.BoolFuncs;
 import parser.util.Pat;
 import util.StringUtils;
 import exception.NodeInitException;
@@ -134,8 +135,35 @@ public class SExpression extends Node {
 
 	@Override
 	public Node eval() {
-		// TODO IMPLEMENT
-		return null;
+		return eval(false);
+	}
+
+	@Override
+	public Node eval(boolean literal) {
+		String ad = addr.eval().toString();
+		SExpression formals = null;
+
+		if (literal && Pat.ATOM_NUM.matches(ad)) {
+			return addr.eval();
+		} else if (ad.matches("T|NIL")) {
+			return BoolFuncs.boolFuncFactory(ad);
+		} else if (env.isDefinedV(ad)) {
+			return env.getVariableValue(ad);
+		} else if (env.isDefinedF(ad)) {
+			return env.exec(ad, Node.makeNode(dataTokens));
+		} else if (ad.matches("CAR|CDR")) {
+			SExpression sexp = new SExpression(dataTokens);
+			if (data.isList()) {
+				sexp = new SExpression(sexp.addr.eval().tokens);
+			}
+			formals = sexp;
+		} else if (ad.matches("DEFUN")) {
+			// TODO: DEFUN
+		} else {
+			formals = (SExpression) data;
+		}
+
+		return env.invokePrim(ad, formals);
 	}
 
 	/**

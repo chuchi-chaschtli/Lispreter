@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import parser.prim.PrimitiveHandler;
 import exception.EnvironmentException;
 
 /**
@@ -21,6 +22,19 @@ public class Environment {
 
 	private Hashtable<String, UserFunc> functions = new Hashtable<>();
 	private Hashtable<String, Node> variables = new Hashtable<>();
+
+	private PrimitiveHandler handler;
+
+	/**
+	 * Constructs an Environment with a primitve handler instance for invoking
+	 * defined functions.
+	 * 
+	 * @param handler
+	 *            a PrimtiveHandler object.
+	 */
+	public Environment(PrimitiveHandler handler) {
+		this.handler = handler;
+	}
 
 	/**
 	 * Executes a given function with the given variable arguments.
@@ -162,5 +176,20 @@ public class Environment {
 	 */
 	public void setVariables(Hashtable<String, Node> values) {
 		variables = new Hashtable<>(values);
+	}
+
+	/**
+	 * Invokes a primitive with a given alias and SExpression by calling the
+	 * PrimitiveHandler method.
+	 * 
+	 * @param name
+	 *            the alias of the function
+	 * @param sexp
+	 *            the sexpression argument, null for a boolean function
+	 * @return the Node constructed by invoking the primitive function
+	 * @see PrimitiveHandler#callFunc(String, Object...)
+	 */
+	public Node invokePrim(String name, SExpression sexp) {
+		return handler.callFunc(name, sexp);
 	}
 }

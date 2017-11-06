@@ -81,9 +81,19 @@ public abstract class Node {
 	 * Evaluates this node.
 	 * 
 	 * @return the Node after evaluation.
-	 * @throws EnvironmentException if the node has no environment
+	 * @throws EnvironmentException
+	 *             if the node has no environment
 	 */
 	public abstract Node eval();
+
+	/**
+	 * Evaluates this node.
+	 * 
+	 * @param literal
+	 *            whether or not numericals should be evaluated literally.
+	 * @return the evaluated Node.
+	 */
+	public abstract Node eval(boolean literal);
 
 	/**
 	 * Sets the environment for this node.

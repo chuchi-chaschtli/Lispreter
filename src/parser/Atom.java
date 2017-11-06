@@ -66,12 +66,18 @@ public class Atom extends Node {
 	@Override
 	public Node eval() {
 		if (env == null) {
-			throw new EnvironmentException("The node specified has no environment");
+			throw new EnvironmentException(
+					"The node specified has no environment");
 		}
 		if (env.isDefinedV(lit)) {
 			return env.getVariableValue(lit);
 		}
 		return this;
+	}
+
+	@Override
+	public Node eval(boolean literal) {
+		return eval();
 	}
 
 	/**
