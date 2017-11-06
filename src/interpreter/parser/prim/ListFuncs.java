@@ -1,11 +1,11 @@
 /**
  * ListFuncs.java is a part of Lispreter. 
  */
-package parser.prim;
+package interpreter.parser.prim;
 
-import parser.Node;
-import parser.SExpression;
-import parser.util.Pat;
+import interpreter.parser.Node;
+import interpreter.parser.SExpression;
+import interpreter.parser.util.Pat;
 
 /**
  * @author Anand

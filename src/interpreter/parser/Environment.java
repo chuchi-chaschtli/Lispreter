@@ -1,15 +1,15 @@
 /**
  * Environment.java is a part of Lispreter. 
  */
-package parser;
+package interpreter.parser;
+
+import interpreter.exception.EnvironmentException;
+import interpreter.parser.prim.PrimitiveHandler;
 
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Set;
-
-import parser.prim.PrimitiveHandler;
-import exception.EnvironmentException;
 
 /**
  * Contains the working 'd-list' of the lisp program. Manages function/var
@@ -25,6 +25,8 @@ public class Environment {
 
 	private PrimitiveHandler handler;
 
+	private static Environment instance;
+
 	/**
 	 * Constructs an Environment with a primitve handler instance for invoking
 	 * defined functions.
@@ -32,8 +34,15 @@ public class Environment {
 	 * @param handler
 	 *            a PrimtiveHandler object.
 	 */
-	public Environment(PrimitiveHandler handler) {
+	private Environment(PrimitiveHandler handler) {
 		this.handler = handler;
+	}
+	
+	public static Environment getInstance() {
+		if (instance == null) {
+			instance = new Environment(new PrimitiveHandler());
+		}
+		return instance;
 	}
 
 	/**

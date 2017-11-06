@@ -1,15 +1,15 @@
 /**
  * Node.java is a part of Lispreter. 
  */
-package parser;
+package interpreter.parser;
+
+import interpreter.exception.EnvironmentException;
+import interpreter.exception.NodeInitException;
+import interpreter.parser.util.Pat;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import parser.util.Pat;
-import exception.EnvironmentException;
-import exception.NodeInitException;
 
 /**
  * Main data structure for handling atoms and S-Expressions. A node maintains a
@@ -24,7 +24,6 @@ import exception.NodeInitException;
 public abstract class Node {
 
 	protected List<String> tokens = new ArrayList<>();
-	protected Environment env;
 
 	/**
 	 * Employs the factory pattern to create a new atom or s-expression.
@@ -95,24 +94,6 @@ public abstract class Node {
 	 */
 	public abstract Node eval(boolean literal);
 
-	/**
-	 * Sets the environment for this node.
-	 * 
-	 * @param env
-	 *            the new Environment.
-	 */
-	public void setEnvironment(Environment env) {
-		this.env = env;
-	}
-
-	/**
-	 * Grabs this node's environment.
-	 * 
-	 * @return
-	 */
-	public Environment getEnvironment() {
-		return env;
-	}
 
 	@Override
 	public int hashCode() {

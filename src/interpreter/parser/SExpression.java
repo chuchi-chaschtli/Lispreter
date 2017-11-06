@@ -1,15 +1,15 @@
 /**
  * SExpression.java is a part of Lispreter. 
  */
-package parser;
+package interpreter.parser;
+
+import interpreter.exception.NodeInitException;
+import interpreter.parser.prim.BoolFuncs;
+import interpreter.parser.util.Pat;
+import interpreter.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import parser.prim.BoolFuncs;
-import parser.util.Pat;
-import util.StringUtils;
-import exception.NodeInitException;
 
 /**
  * Representation for S-Expressions. Construction and evaluation from various
@@ -142,6 +142,7 @@ public class SExpression extends Node {
 	public Node eval(boolean literal) {
 		String ad = addr.eval().toString();
 		SExpression formals = null;
+		Environment env = Environment.getInstance();
 
 		if (literal && Pat.ATOM_NUM.matches(ad)) {
 			return addr.eval();

@@ -1,10 +1,10 @@
 /**
  * BoolFuncs.java is a part of Lispreter. 
  */
-package parser.prim;
+package interpreter.parser.prim;
 
-import parser.Atom;
-import parser.Node;
+import interpreter.parser.Atom;
+import interpreter.parser.Node;
 
 /**
  * @author Anand

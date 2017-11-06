@@ -1,11 +1,11 @@
 /**
  * Atom.java is a part of Lispreter. 
  */
-package parser;
+package interpreter.parser;
 
-import parser.util.Pat;
-import exception.EnvironmentException;
-import exception.NodeInitException;
+import interpreter.exception.EnvironmentException;
+import interpreter.exception.NodeInitException;
+import interpreter.parser.util.Pat;
 
 /**
  * Atoms are elements of a Lisp program which are strictly alphanumeric
@@ -65,6 +65,7 @@ public class Atom extends Node {
 
 	@Override
 	public Node eval() {
+		Environment env = Environment.getInstance();
 		if (env == null) {
 			throw new EnvironmentException(
 					"The node specified has no environment");
