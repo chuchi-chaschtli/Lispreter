@@ -22,8 +22,10 @@ public class ListFuncs implements PrimitiveMarker {
 	public static Node cdr(SExpression sexp) {
 		return sexp.getData();
 	}
-	
+
+	@Primitive(aliases = { "atom" })
 	public static Node atom(SExpression sexp) {
-		return Node.makeNode(Pat.LITERAL.matches(sexp.getAddr().eval().toString()));
+		return Node.makeNode(Pat.LITERAL.matches(sexp.getAddr().eval()
+				.toString()));
 	}
 }
