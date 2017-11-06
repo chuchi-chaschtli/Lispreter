@@ -135,7 +135,7 @@ public class PrimitiveHandler {
 									"Alias supplied for " + m.getName() + ", "
 											+ alias + " is already assigned.");
 						}
-						primitives.put(alias.toLowerCase(), m);
+						primitives.put(alias.toUpperCase(), m);
 					}
 				}
 			}
