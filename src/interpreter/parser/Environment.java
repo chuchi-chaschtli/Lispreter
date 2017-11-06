@@ -37,7 +37,13 @@ public class Environment {
 	private Environment(PrimitiveHandler handler) {
 		this.handler = handler;
 	}
-	
+
+	/**
+	 * Grabs the instance of this environment. If the environment currently
+	 * doesn't exist, a new one is constructed with a new PrimitiveHandler.
+	 * 
+	 * @return an Environment.
+	 */
 	public static Environment getInstance() {
 		if (instance == null) {
 			instance = new Environment(new PrimitiveHandler());
