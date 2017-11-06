@@ -1,7 +1,8 @@
 /**
  * UserFunc.java is a part of Lispreter. 
  */
-package parser;
+package interpreter.parser;
+
 
 /**
  * User defined functions...

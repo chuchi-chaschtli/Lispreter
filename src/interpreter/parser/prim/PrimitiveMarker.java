@@ -1,7 +1,7 @@
 /**
  * PrimitiveMarker.java is a part of Lispreter. 
  */
-package parser.prim;
+package interpreter.parser.prim;
 
 /**
  * Marker interface to flag any class which contains Primitive Functions.

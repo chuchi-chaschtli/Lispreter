@@ -1,7 +1,10 @@
 /**
  * PrimitiveHandler.java is a part of Lispreter. 
  */
-package parser.prim;
+package interpreter.parser.prim;
+
+import interpreter.parser.Node;
+import interpreter.parser.SExpression;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,9 +12,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import parser.Node;
-import parser.SExpression;
 
 /**
  * Wrapper class for all Primitive Functions. The handler, upon instantiation,

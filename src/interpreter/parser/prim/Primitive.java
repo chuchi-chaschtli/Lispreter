@@ -1,7 +1,7 @@
 /**
  * Primitive.java is a part of Lispreter. 
  */
-package parser.prim;
+package interpreter.parser.prim;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

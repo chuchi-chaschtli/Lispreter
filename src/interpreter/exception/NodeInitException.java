@@ -1,7 +1,7 @@
 /**
  * NodeInitException.java is a part of Lispreter. 
  */
-package exception;
+package interpreter.exception;
 
 /**
  * This exception is thrown whenever a Node is initialized in an invalid way.

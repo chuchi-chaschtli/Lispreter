@@ -1,7 +1,7 @@
 /**
  * EnvironmentException.java is a part of Lispreter. 
  */
-package exception;
+package interpreter.exception;
 
 /**
  * This exception is thrown whenever the Environment is accessed or modified in
