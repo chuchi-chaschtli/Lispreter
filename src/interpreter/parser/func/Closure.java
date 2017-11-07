@@ -1,5 +1,5 @@
 /**
- * UserDef.java is a part of Lispreter. 
+ * Closure.java is a part of Lispreter. 
  */
 package interpreter.parser.func;
 
@@ -11,29 +11,15 @@ import interpreter.parser.SExpression;
 import java.util.Hashtable;
 
 /**
- * Representation for user defined lisp functions.
+ * Lambda operations as defined in lisp.
  * 
  * @author Anand
  *
  */
-public final class UserDef extends Function {
+public final class Closure extends Function {
 
-	private final String name;
-
-	/**
-	 * Constructor initializes a User Function based on a name, and a list of
-	 * formals and body.
-	 * 
-	 * @param name
-	 *            the String id of the function.
-	 * @param formals
-	 *            the list of formals.
-	 * @param body
-	 *            the func body.
-	 */
-	public UserDef(String name, Node formals, Node body) {
-		super(formals, body);
-		this.name = name;
+	public Closure(Node params, Node body) {
+		super(params, body);
 	}
 
 	@Override
@@ -53,15 +39,9 @@ public final class UserDef extends Function {
 				s = new SExpression(s.getDataTokens());
 			}
 			catch (NodeInitException e) {
-				throw new FuncDefException("Too few args for function : "
-						+ name);
+				break;
 			}
 		}
-
-		if (s.getData().eval().toString().equals("NIL")) {
-			return env;
-		}
-		throw new FuncDefException("Too many args for function : " + name);
+		return env;
 	}
-
 }
