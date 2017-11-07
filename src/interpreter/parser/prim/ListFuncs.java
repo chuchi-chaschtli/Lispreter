@@ -46,6 +46,17 @@ public class ListFuncs implements PrimitiveMarker {
 		return new Atom(name);
 	}
 
+	/**
+	 * Evaluates a list of conditions until one's first evaluates to True, then
+	 * returns the second item.
+	 * 
+	 * As per the lisp equivalent, an error will result if no 'arm' of the cond
+	 * statement is a true expression.
+	 * 
+	 * @param sexp
+	 *            an S-Expression describing a list of conditions.
+	 * @return an evaluated expression in the list with the first true 'arm'.
+	 */
 	@Primitive(aliases = { "cond" })
 	public static Node cond(SExpression sexp) {
 		SExpression addr = new SExpression(sexp.getAddrTokens());
@@ -56,10 +67,9 @@ public class ListFuncs implements PrimitiveMarker {
 	}
 
 	/**
-	 * Strictly following semantic operations, quote returns the equivalent of
-	 * CADR on the contained s-expression. In the context this function is
-	 * operated in, the S-Expression data has been passed to other primitives,
-	 * so we need only grab the address.
+	 * Quote returns the equivalent of CADR on the contained s-expression. In
+	 * the context this function is operated in, the S-Expression data has been
+	 * passed to other primitives, so we need only grab the address.
 	 * 
 	 * @param sexp
 	 *            an S-Expression
