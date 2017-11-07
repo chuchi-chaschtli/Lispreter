@@ -47,6 +47,24 @@ public class ListFuncs implements PrimitiveMarker {
 	}
 
 	/**
+	 * Carries out cons as according to the lisp function definition, which
+	 * combines the CAR with the CADR of the arguments into a single flattened
+	 * list.
+	 * <p>
+	 * If either argument fails, an exception is thrown during S-Expression
+	 * construction.
+	 * 
+	 * @param sexp
+	 *            S-Expression arguments.
+	 * @return (cons (car s) (cadr s))
+	 */
+	@Primitive(aliases = "cons")
+	public static Node cons(SExpression sexp) {
+		return new SExpression(sexp.getAddr().eval(), new SExpression(
+				sexp.getDataTokens()).eval());
+	}
+
+	/**
 	 * Evaluates a list of conditions until one's first evaluates to True, then
 	 * returns the second item.
 	 * 
