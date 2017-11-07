@@ -4,9 +4,7 @@
 package interpreter.parser.func;
 
 import interpreter.exception.FuncDefException;
-import interpreter.exception.NodeInitException;
 import interpreter.parser.Node;
-import interpreter.parser.SExpression;
 import interpreter.parser.util.Pat;
 
 import java.util.ArrayList;
