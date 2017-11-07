@@ -3,6 +3,8 @@
  */
 package interpreter.parser;
 
+import java.util.Hashtable;
+
 import interpreter.exception.EnvironmentException;
 import interpreter.exception.NodeInitException;
 import interpreter.parser.util.Pat;
@@ -80,6 +82,16 @@ public class Atom extends Node {
 	public Node eval(boolean literal) {
 		return eval();
 	}
+	
+	@Override
+	public Node eval(boolean literal, Hashtable<String, Node> env) {
+		return eval();
+	}
+
+	@Override
+	public Node eval(Hashtable<String, Node> env) {
+		return eval();
+	}
 
 	/**
 	 * Grabs the atomic literal. Removes positive redundance (arabic numbers can
@@ -110,5 +122,4 @@ public class Atom extends Node {
 		if (lit == null && other.lit != null) return false;
 		return lit.equals(other.lit);
 	}
-
 }

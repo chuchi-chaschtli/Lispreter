@@ -8,6 +8,7 @@ import interpreter.exception.NodeInitException;
 import interpreter.parser.util.Pat;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Objects;
 
@@ -94,6 +95,25 @@ public abstract class Node {
 	 */
 	public abstract Node eval(boolean literal);
 
+	/**
+	 * Evaluates this node.
+	 * 
+	 * @param literal
+	 *            whether or not numericals should be evaluated literally.
+	 * @param env
+	 *            a scoped variable environment.
+	 * @return the evaluation of this Node.
+	 */
+	public abstract Node eval(boolean literal, Hashtable<String, Node> env);
+
+	/**
+	 * Evaluates this node.
+	 * 
+	 * @param env
+	 *            a scoped variable enivornment.
+	 * @return the evaluation of this Node.
+	 */
+	public abstract Node eval(Hashtable<String, Node> env);
 
 	@Override
 	public int hashCode() {

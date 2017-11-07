@@ -10,6 +10,7 @@ import interpreter.parser.util.Pat;
 import interpreter.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -166,6 +167,20 @@ public class SExpression extends Node {
 		}
 
 		return env.invokePrim(ad, formals);
+	}
+
+	@Override
+	public Node eval(boolean literal, Hashtable<String, Node> env) {
+		Environment environ = Environment.getInstance();
+		Hashtable<String, Node> outdated = environ.getVariables();
+		environ.substitute(env);
+		environ.setVariables(outdated);
+		return eval(literal);
+	}
+
+	@Override
+	public Node eval(Hashtable<String, Node> env) {
+		return eval(false, env);
 	}
 
 	/**
