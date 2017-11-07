@@ -97,6 +97,7 @@ public class PrimitiveHandler {
 		register(BoolFuncs.class);
 		register(ListFuncs.class);
 		register(MathFuncs.class);
+		register(PredFuncs.class);
 	}
 
 	/**

@@ -162,6 +162,8 @@ public class SExpression extends Node {
 			formals = sexp;
 		} else if (ad.matches("DEFUN")) {
 			return ListFuncs.defun((SExpression) data);
+		} else if (ad.matches("LAMBDA")) {
+			return ListFuncs.lambda((SExpression) data);
 		} else {
 			formals = (SExpression) data;
 		}
