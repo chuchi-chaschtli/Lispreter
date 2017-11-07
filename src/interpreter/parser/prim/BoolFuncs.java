@@ -6,6 +6,7 @@ package interpreter.parser.prim;
 import interpreter.parser.Atom;
 import interpreter.parser.Node;
 import interpreter.parser.SExpression;
+import interpreter.parser.util.Pat;
 
 /**
  * @author Anand
@@ -38,6 +39,25 @@ public class BoolFuncs implements PrimitiveMarker {
 	public static Node eq(SExpression sexp) {
 		return Node.makeNode(sexp.getAddr().eval(true).toString()
 				.equals(sexp.getData().eval(true).toString()));
+	}
+	
+	/**
+	 * Checks if the data of the given S-Expression is NIL.
+	 * 
+	 * @param sexp
+	 *            the S-Expression to evaluate.
+	 * @return T or NIL if the S-Expression is NIL.
+	 */
+	@Primitive(aliases = { "null", "endp" })
+	public static Node endp(SExpression sexp) {
+		return Node
+				.makeNode(sexp.getData().eval(true).toString().equals("NIL"));
+	}
+
+	@Primitive(aliases = { "atom" })
+	public static Node atom(SExpression sexp) {
+		return Node.makeNode(Pat.LITERAL.matches(sexp.getAddr().eval()
+				.toString()));
 	}
 
 	public static Node boolFuncFactory(String alias) {
