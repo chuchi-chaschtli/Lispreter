@@ -14,7 +14,7 @@ import interpreter.parser.util.Pat;
  * @author Anand
  *
  */
-public class ListFuncs implements PrimitiveMarker {
+public final class ListFuncs implements PrimitiveMarker {
 
 	@Primitive(aliases = { "car", "first" })
 	public static Node car(SExpression sexp) {

@@ -13,7 +13,7 @@ import interpreter.parser.util.Pat;
  * @author Anand
  *
  */
-public class MathFuncs implements PrimitiveMarker {
+public final class MathFuncs implements PrimitiveMarker {
 
 	/**
 	 * Checks if the address of the given S-Expression is an integer.

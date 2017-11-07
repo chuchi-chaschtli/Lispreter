@@ -12,7 +12,7 @@ import interpreter.parser.util.Pat;
  * @author Anand
  *
  */
-public class BoolFuncs implements PrimitiveMarker {
+public final class BoolFuncs implements PrimitiveMarker {
 
 	@Primitive(aliases = { "T", "true" }, sexpRequired = false)
 	public static Node t() {
