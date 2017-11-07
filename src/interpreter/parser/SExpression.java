@@ -130,7 +130,7 @@ public class SExpression extends Node {
 	}
 
 	@Override
-	protected boolean isList() {
+	public boolean isList() {
 		return data.toString().matches("NIL") || data.isList();
 	}
 

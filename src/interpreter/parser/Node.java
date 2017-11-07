@@ -74,7 +74,7 @@ public abstract class Node {
 	 * 
 	 * @return true if part of a list, false otherwise.
 	 */
-	protected abstract boolean isList();
+	public abstract boolean isList();
 
 	/**
 	 * Evaluates this node.

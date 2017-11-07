@@ -59,7 +59,7 @@ public class Atom extends Node {
 	}
 
 	@Override
-	protected boolean isList() {
+	public boolean isList() {
 		return false;
 	}
 
