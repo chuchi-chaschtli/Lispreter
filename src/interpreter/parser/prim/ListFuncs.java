@@ -46,6 +46,28 @@ public class ListFuncs implements PrimitiveMarker {
 		return new Atom(name);
 	}
 
+	@Primitive(aliases = { "cond" })
+	public static Node cond(SExpression sexp) {
+		SExpression addr = new SExpression(sexp.getAddrTokens());
+		if (addr.getAddr().eval().toString().equals("T")) {
+			return new SExpression(addr.getDataTokens()).getAddr().eval(true);
+		}
+		return cond(new SExpression(sexp.getDataTokens()));
+	}
+
+	/**
+	 * Checks if the data of the given S-Expression is NIL.
+	 * 
+	 * @param sexp
+	 *            the S-Expression to evaluate.
+	 * @return T or NIL if the S-Expression is NIL.
+	 */
+	@Primitive(aliases = { "null", "endp" })
+	public static Node endp(SExpression sexp) {
+		return Node
+				.makeNode(sexp.getData().eval(true).toString().equals("NIL"));
+	}
+
 	@Primitive(aliases = { "atom" })
 	public static Node atom(SExpression sexp) {
 		return Node.makeNode(Pat.LITERAL.matches(sexp.getAddr().eval()
