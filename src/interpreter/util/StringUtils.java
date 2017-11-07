@@ -10,7 +10,7 @@ import java.util.List;
  * @author Anand
  *
  */
-public class StringUtils {
+public final class StringUtils {
 
 	private StringUtils() {
 		throw new AssertionError("Cannot init util constructor");
