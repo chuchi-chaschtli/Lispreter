@@ -94,4 +94,28 @@ public abstract class Function {
 	 * @return a binding table.
 	 */
 	protected abstract Hashtable<String, Node> bind(Node actuals);
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((body == null) ? 0 : body.hashCode());
+		result = prime * result + ((params == null) ? 0 : params.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		Function other = (Function) obj;
+		if (body == null) {
+			if (other.body != null) return false;
+		} else if (!body.equals(other.body)) return false;
+		if (params == null && other.params != null) {
+			return false;
+		}
+		return params.equals(other.params);
+	}
 }

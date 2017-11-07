@@ -41,9 +41,20 @@ public final class ListFuncs implements PrimitiveMarker {
 		Node formals = Node.makeNode(dTokens.getAddrTokens());
 		Node body = Node.makeNode(new SExpression(dTokens.getDataTokens())
 				.getAddrTokens());
-		Environment.getInstance().register(name, formals, body);
+		Environment.getInstance().registerFunc(name, formals, body);
 
 		return new Atom(name);
+	}
+
+	@Primitive(aliases = { "lambda", "Λ", "λ" })
+	public static Node lambda(SExpression sexp) {
+		SExpression dTokens = new SExpression(sexp.getDataTokens());
+		Node formals = Node.makeNode(dTokens.getAddrTokens());
+		Node body = Node.makeNode(new SExpression(dTokens.getDataTokens())
+				.getAddrTokens());
+		Environment.getInstance().registerAnon(formals, body);
+
+		return new Atom("lambda");
 	}
 
 	/**

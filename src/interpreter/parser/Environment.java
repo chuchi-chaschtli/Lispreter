@@ -4,6 +4,7 @@
 package interpreter.parser;
 
 import interpreter.exception.EnvironmentException;
+import interpreter.parser.func.Closure;
 import interpreter.parser.func.UserDef;
 import interpreter.parser.prim.PrimitiveHandler;
 
@@ -22,6 +23,7 @@ import java.util.Set;
 public class Environment {
 
 	private Hashtable<String, UserDef> functions = new Hashtable<>();
+	private Hashtable<Node, Closure> lambdas = new Hashtable<>();
 	private Hashtable<String, Node> variables = new Hashtable<>();
 
 	private PrimitiveHandler handler;
@@ -68,12 +70,15 @@ public class Environment {
 			throw new EnvironmentException("The function " + name
 					+ " is undefined.");
 		}
-		UserDef func = functions.get(name);
-		return func.eval(args);
+		if (lambdas.containsKey(args)) {
+			return lambdas.get(args).eval(args);
+		}
+		return functions.get(name).eval(args);
 	}
 
 	/**
-	 * Registers a function in the 'd-list' table.
+	 * Registers a function in the 'd-list' table. If the given name is
+	 * 'lambda', an anonymous function is registered.
 	 * 
 	 * @param name
 	 *            the identifier tag of the function.
@@ -82,8 +87,24 @@ public class Environment {
 	 * @param body
 	 *            the literal or sexp function body.
 	 */
-	public void register(String name, Node args, Node body) {
+	public void registerFunc(String name, Node args, Node body) {
+		if (name.equals("lambda")) {
+			registerAnon(args, body);
+			return;
+		}
 		functions.put(name, new UserDef(name, args, body));
+	}
+
+	/**
+	 * Registers a function in the anonymous table.
+	 * 
+	 * @param args
+	 *            the formal arguments of the function.
+	 * @param body
+	 *            the literal or sexp function body.
+	 */
+	public void registerAnon(Node args, Node body) {
+		lambdas.put(args, new Closure(args, body));
 	}
 
 	/**
@@ -143,7 +164,7 @@ public class Environment {
 	 * @return true if the function name is in the hashtable, false otherwise.
 	 */
 	public boolean isDefinedF(String name) {
-		return functions.containsKey(name);
+		return functions.containsKey(name) || lambdas.containsKey(name);
 	}
 
 	/**
