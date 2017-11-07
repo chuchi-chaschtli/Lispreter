@@ -1,7 +1,9 @@
 /**
- * UserFunc.java is a part of Lispreter. 
+ * UserDef.java is a part of Lispreter. 
  */
-package interpreter.parser;
+package interpreter.parser.func;
+
+import interpreter.parser.Node;
 
 
 /**
@@ -12,9 +14,9 @@ package interpreter.parser;
  * @author Anand
  *
  */
-public class UserFunc {
+public class UserDef {
 
-	public UserFunc(String name, Node formals, Node body) {}
+	public UserDef(String name, Node formals, Node body) {}
 
 	public Node eval(Node args) {
 		return args;

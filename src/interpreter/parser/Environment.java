@@ -4,6 +4,7 @@
 package interpreter.parser;
 
 import interpreter.exception.EnvironmentException;
+import interpreter.parser.func.UserDef;
 import interpreter.parser.prim.PrimitiveHandler;
 
 import java.util.Hashtable;
@@ -20,7 +21,7 @@ import java.util.Set;
  */
 public class Environment {
 
-	private Hashtable<String, UserFunc> functions = new Hashtable<>();
+	private Hashtable<String, UserDef> functions = new Hashtable<>();
 	private Hashtable<String, Node> variables = new Hashtable<>();
 
 	private PrimitiveHandler handler;
@@ -67,7 +68,7 @@ public class Environment {
 			throw new EnvironmentException("The function " + name
 					+ " is undefined.");
 		}
-		UserFunc func = functions.get(name);
+		UserDef func = functions.get(name);
 		return func.eval(args);
 	}
 
@@ -82,7 +83,7 @@ public class Environment {
 	 *            the literal or sexp function body.
 	 */
 	public void register(String name, Node args, Node body) {
-		functions.put(name, new UserFunc(name, args, body));
+		functions.put(name, new UserDef(name, args, body));
 	}
 
 	/**
