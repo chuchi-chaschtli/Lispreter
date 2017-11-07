@@ -34,13 +34,13 @@ public final class Analyzer {
 	 *             if the input stream could not be read.
 	 */
 	public Analyzer(InputStream stream) throws IOException {
-		ByteArrayOutputStream byteSteram = new ByteArrayOutputStream();
+		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 		byte[] buffer = new byte[1024];
 		int length = 0;
 		while ((length = stream.read(buffer)) != -1) {
-			byteSteram.write(buffer, 0, length);
+			byteStream.write(buffer, 0, length);
 		}
-		prog = byteSteram.toString("UTF-8");
+		prog = byteStream.toString("UTF-8");
 		tokenize();
 	}
 
