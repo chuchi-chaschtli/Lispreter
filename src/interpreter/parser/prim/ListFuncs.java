@@ -55,6 +55,21 @@ public class ListFuncs implements PrimitiveMarker {
 		return cond(new SExpression(sexp.getDataTokens()));
 	}
 
+	/**
+	 * Strictly following semantic operations, quote returns the equivalent of
+	 * CADR on the contained s-expression. In the context this function is
+	 * operated in, the S-Expression data has been passed to other primitives,
+	 * so we need only grab the address.
+	 * 
+	 * @param sexp
+	 *            an S-Expression
+	 * @return the address of {@code sexp}.
+	 */
+	@Primitive(aliases = { "quote", "'" })
+	public static Node quote(SExpression sexp) {
+		return sexp.getAddr();
+	}
+
 	private static boolean isPrimitiveRegistered(String alias) {
 		for (String funcName : Environment.getInstance().getHandler()
 				.getRegisteredFunctions().keySet()) {
