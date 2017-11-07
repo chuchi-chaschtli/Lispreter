@@ -72,9 +72,8 @@ public final class Analyzer {
 	 * @see Pat#matches(char)
 	 */
 	private void tokenize() {
-		List<String> tokenList = new ArrayList<>();
 		if (prog.length() == 1) {
-			tokenList.add(prog);
+			tokens.add(prog);
 		} else {
 			int counter = 0;
 			while (counter < prog.length()) {
@@ -88,13 +87,12 @@ public final class Analyzer {
 									next + 1))) {
 						next++;
 					}
-					tokenList.add(prog.substring(counter, next));
+					tokens.add(prog.substring(counter, next));
 				} else if (Pat.SYMBOL.matches(c)) {
-					tokenList.add("" + c);
+					tokens.add("" + c);
 				}
 				counter = next;
 			}
 		}
-		tokens = tokenList;
 	}
 }
