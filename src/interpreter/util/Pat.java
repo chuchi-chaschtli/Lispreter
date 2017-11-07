@@ -1,7 +1,7 @@
 /**
  * Pat.java is a part of Lispreter. 
  */
-package interpreter.parser.util;
+package interpreter.util;
 
 /**
  * Contains useful regular expression patterns for symbol and literal

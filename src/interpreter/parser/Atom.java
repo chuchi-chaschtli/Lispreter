@@ -7,7 +7,7 @@ import java.util.Hashtable;
 
 import interpreter.exception.EnvironmentException;
 import interpreter.exception.NodeInitException;
-import interpreter.parser.util.Pat;
+import interpreter.util.Pat;
 
 /**
  * Atoms are elements of a Lisp program which are strictly alphanumeric

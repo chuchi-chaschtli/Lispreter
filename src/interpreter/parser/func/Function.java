@@ -5,7 +5,7 @@ package interpreter.parser.func;
 
 import interpreter.exception.FuncDefException;
 import interpreter.parser.Node;
-import interpreter.parser.util.Pat;
+import interpreter.util.Pat;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

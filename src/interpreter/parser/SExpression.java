@@ -6,7 +6,7 @@ package interpreter.parser;
 import interpreter.exception.NodeInitException;
 import interpreter.parser.prim.BoolFuncs;
 import interpreter.parser.prim.ListFuncs;
-import interpreter.parser.util.Pat;
+import interpreter.util.Pat;
 import interpreter.util.StringUtils;
 
 import java.util.ArrayList;

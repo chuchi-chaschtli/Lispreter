@@ -5,7 +5,7 @@ package interpreter.parser.prim;
 
 import interpreter.parser.Node;
 import interpreter.parser.SExpression;
-import interpreter.parser.util.Pat;
+import interpreter.util.Pat;
 
 /**
  * Math operation functions that are already pre-packaged.

@@ -5,7 +5,7 @@ package interpreter.parser;
 
 import interpreter.exception.EnvironmentException;
 import interpreter.exception.NodeInitException;
-import interpreter.parser.util.Pat;
+import interpreter.util.Pat;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

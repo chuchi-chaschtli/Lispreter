@@ -6,7 +6,7 @@ package interpreter.parser.prim;
 import interpreter.parser.Atom;
 import interpreter.parser.Node;
 import interpreter.parser.SExpression;
-import interpreter.parser.util.Pat;
+import interpreter.util.Pat;
 
 /**
  * @author Anand
