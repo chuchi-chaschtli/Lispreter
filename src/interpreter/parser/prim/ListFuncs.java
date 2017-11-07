@@ -86,13 +86,22 @@ public final class ListFuncs implements PrimitiveMarker {
 	 *            an S-Expression describing a list of conditions.
 	 * @return an evaluated expression in the list with the first true 'arm'.
 	 */
-	@Primitive(aliases = { "cond" })
+	@Primitive(aliases = "cond")
 	public static Node cond(SExpression sexp) {
 		SExpression addr = new SExpression(sexp.getAddrTokens());
 		if (addr.getAddr().eval().toString().equals("T")) {
 			return new SExpression(addr.getDataTokens()).getAddr().eval(true);
 		}
 		return cond(new SExpression(sexp.getDataTokens()));
+	}
+
+	@Primitive(aliases = "if")
+	public static Node ifelse(SExpression sexp) {
+		SExpression addr = new SExpression(sexp.getAddrTokens());
+		if (addr.getAddr().eval().toString().equals("T")) {
+			return new SExpression(addr.getDataTokens()).getAddr().eval(true);
+		}
+		return new SExpression(sexp.getDataTokens()).eval(true);
 	}
 
 	/**
