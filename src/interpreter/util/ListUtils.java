@@ -53,4 +53,101 @@ public final class ListUtils {
 		}
 		return result;
 	}
+
+	public static int clauseEnd(List<String> list) {
+		if (!Pat.PAREN_OPEN.matches(list.get(0))) {
+			throw new IllegalArgumentException(
+					"Could not find clause end for an expression that isn't a clause");
+		}
+		int opens = 1;
+		int endIndex = 1;
+
+		while (opens > 0) {
+			if (endIndex >= list.size()) {
+				throw new IllegalArgumentException("Imbalanced parens");
+			}
+
+			String endVal = list.get(endIndex);
+			if (Pat.PAREN_OPEN.matches(endVal)) {
+				opens++;
+			} else if (Pat.PAREN_CLOSE.matches(endVal)) {
+				opens--;
+			}
+
+			if (opens > 0) {
+				endIndex++;
+			}
+		}
+		return endIndex;
+	}
+
+	public static <T> List<T> subList(List<T> list, int start, int end,
+			boolean copy) {
+		if (copy) {
+			return new ArrayList<T>(list.subList(start, end));
+		}
+		return list.subList(start, end);
+	}
+
+	public static <T> List<T> subList(List<T> list, int start, int end) {
+		return subList(list, start, end, true);
+	}
+
+	public static <T> List<T> subList(List<T> list, int start, boolean copy) {
+		return subList(list, start, list.size(), copy);
+	}
+
+	public static List<String> inDotNotation(List<String> list) {
+		List<String> result = new ArrayList<String>();
+		List<String> tmp;
+		int next = 0;
+
+		if (Pat.PAREN_OPEN.matches(list.get(0))) {
+			int close = clauseEnd(list);
+			if (close > 1) {
+				result.add("(");
+				if (close > 2) {
+					if (Pat.PAREN_OPEN.matches(list.get(1))) {
+						next = clauseEnd(subList(list, 1, close));
+					}
+					next += 2;
+
+					result.addAll(inDotNotation(subList(list, 1, next)));
+					result.add(".");
+					if (list.get(next).equals(".")) {
+						result.addAll(inDotNotation(subList(list, next + 1,
+								close)));
+					} else {
+						tmp = new ArrayList<>();
+						tmp.add("(");
+						tmp.addAll(subList(list, next, close, false));
+						tmp.add(")");
+						result.addAll(inDotNotation(tmp));
+					}
+				} else {
+					result.add(list.get(1));
+					result.add(".");
+					result.add("NIL");
+				}
+				result.add(")");
+			} else {
+				result.add("NIL");
+			}
+		} else {
+			int openParen = list.indexOf("(");
+			if (list.contains("[") && list.indexOf("[") < openParen) {
+				openParen = list.indexOf("[");
+			}
+			if (list.contains("{") && list.indexOf("{") < openParen) {
+				openParen = list.indexOf("{");
+			}
+			if (openParen > 0) {
+				result.addAll(subList(list, 0, openParen));
+				result.addAll(inDotNotation(subList(list, openParen, true)));
+			} else {
+				result = list;
+			}
+		}
+		return result;
+	}
 }
