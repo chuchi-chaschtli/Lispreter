@@ -37,4 +37,16 @@ public enum Pat {
 	public boolean matches(String input) {
 		return input.matches(regex);
 	}
+
+	/**
+	 * Checks if the given character matches the current regex pattern.
+	 * 
+	 * @param input
+	 *            the char to match.
+	 * @return true if the input follows this regex pattern.
+	 * @see #matches(String)
+	 */
+	public boolean matches(char input) {
+		return matches("" + input);
+	}
 }
