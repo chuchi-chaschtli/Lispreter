@@ -5,6 +5,7 @@ package interpreter.lexer;
 
 import interpreter.util.Pat;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -33,13 +34,13 @@ public final class Analyzer {
 	 *             if the input stream could not be read.
 	 */
 	public Analyzer(InputStream stream) throws IOException {
-		byte[] bytes = new byte[1024];
-		StringBuffer buffy = new StringBuffer();
-		while (stream.available() > 0) {
-			stream.read(bytes, 0, 1024);
-			buffy.append(new String(bytes).trim().toUpperCase());
+		ByteArrayOutputStream byteSteram = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+		int length = 0;
+		while ((length = stream.read(buffer)) != -1) {
+			byteSteram.write(buffer, 0, length);
 		}
-		prog = buffy.toString();
+		prog = byteSteram.toString("UTF-8");
 		tokenize();
 	}
 
