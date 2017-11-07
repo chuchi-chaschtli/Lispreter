@@ -12,6 +12,12 @@ import java.util.Hashtable;
 import java.util.List;
 
 /**
+ * Data structure for Lisp function definitions. A function is instantiated with
+ * at least a Node for its formal parameters and a Node for its body. The
+ * formals are converted from string form to a List form.
+ * <p>
+ * Functions itself are abstract, and cannot be instanitated.
+ * 
  * @author Anand
  *
  */
@@ -20,6 +26,14 @@ public abstract class Function {
 	protected List<String> params;
 	protected Node body;
 
+	/**
+	 * Constructs a function with formal parameters and a function body.
+	 * 
+	 * @param params
+	 *            a Node of parameters.
+	 * @param body
+	 *            a Node for the function body
+	 */
 	public Function(Node params, Node body) {
 		if (!(params.isList() || params.toString().equals("NIL"))) {
 			throw new FuncDefException("Invalid function parameters");
