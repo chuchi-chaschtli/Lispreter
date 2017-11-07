@@ -6,8 +6,8 @@ package interpreter.parser;
 import interpreter.exception.NodeInitException;
 import interpreter.parser.prim.BoolFuncs;
 import interpreter.parser.prim.ListFuncs;
+import interpreter.util.ListUtils;
 import interpreter.util.Pat;
-import interpreter.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -203,7 +203,7 @@ public class SExpression extends Node {
 					break;
 				}
 			}
-			return "(" + StringUtils.concat(l, " ") + ")";
+			return "(" + ListUtils.concat(l, " ") + ")";
 		}
 		return "(" + addr.toString() + "." + data.toString() + ")";
 	}

@@ -1,5 +1,5 @@
 /**
- * StringUtils.java is a part of Lispreter. 
+ * ListUtils.java is a part of Lispreter. 
  */
 package interpreter.util;
 
@@ -10,9 +10,9 @@ import java.util.List;
  * @author Anand
  *
  */
-public final class StringUtils {
+public final class ListUtils {
 
-	private StringUtils() {
+	private ListUtils() {
 		throw new AssertionError("Cannot init util constructor");
 	}
 
