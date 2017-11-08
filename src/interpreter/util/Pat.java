@@ -12,7 +12,7 @@ package interpreter.util;
  */
 public enum Pat {
 
-	ATOM_NUM("[\\d\\+\\-]?[\\d]*"),
+	ATOM_NUM("[\\d\\+\\-]?[\\d]+"),
 	LETTER("[a-zA-Z]"),
 	LITERAL("[a-zA-Z0-9]+?"),
 	PAREN_OPEN("[({\\[]"),
