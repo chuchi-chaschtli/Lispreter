@@ -104,7 +104,7 @@ public class SExpression extends Node {
 				dataBegin = index + 1;
 			}
 			index = dataBegin > 3 ? ListUtils.subList(tokens, dataBegin, true)
-					.indexOf(".") : 2;
+					.indexOf(".") + dataBegin : 2;
 
 			addrTokens = ListUtils.subList(tokens, 1, index, true);
 			dataTokens = ListUtils.subList(tokens, index + 1,
@@ -112,7 +112,6 @@ public class SExpression extends Node {
 
 			data = Node.makeNode(dataTokens);
 			addr = Node.makeNode(addrTokens);
-			this.tokens.clear();
 			buildTokens();
 			return;
 		}

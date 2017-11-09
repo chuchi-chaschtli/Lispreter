@@ -98,8 +98,8 @@ public final class ListUtils {
 	}
 
 	public static List<String> inDotNotation(List<String> list) {
-		List<String> result = new ArrayList<String>();
-		List<String> tmp;
+		List<String> result = new ArrayList<>();
+		List<String> tmp = new ArrayList<>();
 		int next = 0;
 
 		if (Pat.PAREN_OPEN.matches(list.get(0))) {
@@ -118,7 +118,6 @@ public final class ListUtils {
 						result.addAll(inDotNotation(subList(list, next + 1,
 								close)));
 					} else {
-						tmp = new ArrayList<>();
 						tmp.add("(");
 						tmp.addAll(subList(list, next, close, false));
 						tmp.add(")");
