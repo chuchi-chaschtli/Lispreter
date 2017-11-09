@@ -19,7 +19,7 @@ import java.util.List;
  * @author Anand
  *
  */
-public final class Analyzer {
+public final class Lexer {
 
 	private final String prog;
 	private List<String> tokens = new ArrayList<>();
@@ -33,7 +33,7 @@ public final class Analyzer {
 	 * @throws IOException
 	 *             if the input stream could not be read.
 	 */
-	public Analyzer(InputStream stream) throws IOException {
+	public Lexer(InputStream stream) throws IOException {
 		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 		byte[] buffer = new byte[1024];
 		int length = 0;
@@ -50,7 +50,7 @@ public final class Analyzer {
 	 * @param input
 	 *            a String.
 	 */
-	public Analyzer(String input) {
+	public Lexer(String input) {
 		prog = input;
 		tokenize();
 	}
