@@ -68,7 +68,7 @@ public class PrimitiveHandler {
 	 *             a single S-Expression.
 	 */
 	public Node callFunc(String name, Object... arg) {
-		if (primitives.containsKey(name)) {
+		if (primitives.containsKey(name.toUpperCase())) {
 			Method m = primitives.get(name);
 			try {
 				if (!methodsWithArgs.contains(m)) {
@@ -133,12 +133,12 @@ public class PrimitiveHandler {
 						methodsWithArgs.add(m);
 					}
 					for (String alias : info.aliases()) {
-						if (primitives.containsKey(alias)) {
+						if (primitives.containsKey(alias.toUpperCase())) {
 							throw new IllegalArgumentException(
 									"Alias supplied for " + m.getName() + ", "
-											+ alias + " is already assigned.");
+											+ alias + ", is already assigned.");
 						}
-						primitives.put(alias, m);
+						primitives.put(alias.toUpperCase(), m);
 					}
 				}
 			}

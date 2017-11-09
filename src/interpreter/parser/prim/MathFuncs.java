@@ -33,25 +33,25 @@ public final class MathFuncs implements PrimitiveMarker {
 	 * integer evaluations for basic math operations.
 	 */
 
-	@Primitive(aliases = "+")
+	@Primitive(aliases = "sum")
 	public static Node plus(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr())
 				+ toInteger(sexp.getData()));
 	}
 
-	@Primitive(aliases = "-")
+	@Primitive(aliases = "difference")
 	public static Node minus(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr())
 				- toInteger(sexp.getData()));
 	}
 
-	@Primitive(aliases = "*")
+	@Primitive(aliases = "product")
 	public static Node product(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr())
 				* toInteger(sexp.getData()));
 	}
 
-	@Primitive(aliases = "/")
+	@Primitive(aliases = "quotient")
 	public static Node quotient(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr())
 				/ toInteger(sexp.getData()));
@@ -75,13 +75,13 @@ public final class MathFuncs implements PrimitiveMarker {
 				toInteger(sexp.getData())));
 	}
 
-	@Primitive(aliases = "<")
+	@Primitive(aliases = "less")
 	public static Node less(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr()) < toInteger(sexp
 				.getData()));
 	}
 
-	@Primitive(aliases = ">")
+	@Primitive(aliases = "greater")
 	public static Node greater(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr()) > toInteger(sexp
 				.getData()));

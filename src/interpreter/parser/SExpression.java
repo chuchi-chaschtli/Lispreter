@@ -91,7 +91,7 @@ public class SExpression extends Node {
 		if (tokens.size() > 0 && Pat.PAREN_OPEN.matches(tokens.get(0))) {
 			int index = 1;
 			int dataBegin = 3;
-			if (tokens.get(index) == "(") {
+			if (Pat.PAREN_OPEN.matches(tokens.get(index))) {
 				int numClausesOpen = 1;
 				while (numClausesOpen > 0 && index < tokens.size()) {
 					index++;
@@ -103,14 +103,16 @@ public class SExpression extends Node {
 				}
 				dataBegin = index + 1;
 			}
-			index = dataBegin > 3 ? tokens.subList(dataBegin, tokens.size())
+			index = dataBegin > 3 ? ListUtils.subList(tokens, dataBegin, true)
 					.indexOf(".") : 2;
 
-			dataTokens = new ArrayList<String>(tokens.subList(index + 1,
-					tokens.size() - 1));
-			addrTokens = new ArrayList<String>(tokens.subList(1, index));
+			addrTokens = ListUtils.subList(tokens, 1, index, true);
+			dataTokens = ListUtils.subList(tokens, index + 1,
+					tokens.size() - 1, true);
+
 			data = Node.makeNode(dataTokens);
 			addr = Node.makeNode(addrTokens);
+			this.tokens.clear();
 			buildTokens();
 			return;
 		}
