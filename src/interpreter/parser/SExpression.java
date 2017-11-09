@@ -166,8 +166,6 @@ public class SExpression extends Node {
 			return ListFuncs.defun((SExpression) data);
 		} else if (ad.matches("LAMBDA")) {
 			return ListFuncs.lambda((SExpression) data);
-		} else if (data instanceof SExpression) {
-			formals = (SExpression) data;
 		} else {
 			formals = data;
 		}
