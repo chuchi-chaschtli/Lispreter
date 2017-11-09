@@ -23,9 +23,8 @@ public final class MathFuncs implements PrimitiveMarker {
 	 * @return T or NIL if the given S-Expression is an integer.
 	 */
 	@Primitive(aliases = "integerp")
-	public static Node integerp(SExpression sexp) {
-		return Node.makeNode(Pat.ATOM_NUM.matches(sexp.getAddr().eval(true)
-				.toString()));
+	public static Node integerp(Node n) {
+		return Node.makeNode(Pat.ATOM_NUM.matches(n.eval(true).toString()));
 	}
 
 	/**

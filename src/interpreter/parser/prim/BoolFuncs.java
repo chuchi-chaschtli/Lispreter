@@ -49,9 +49,9 @@ public final class BoolFuncs implements PrimitiveMarker {
 	 * @return T or NIL if the S-Expression is NIL.
 	 */
 	@Primitive(aliases = { "null", "endp" })
-	public static Node endp(SExpression sexp) {
+	public static Node endp(Node n) {
 		return Node
-				.makeNode(sexp.getData().eval(true).toString().equals("NIL"));
+				.makeNode(n.eval(true).toString().equals("NIL"));
 	}
 
 	@Primitive(aliases = { "atom" })

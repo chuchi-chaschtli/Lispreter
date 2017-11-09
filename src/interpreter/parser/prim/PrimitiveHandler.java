@@ -4,7 +4,6 @@
 package interpreter.parser.prim;
 
 import interpreter.parser.Node;
-import interpreter.parser.SExpression;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -55,8 +54,7 @@ public class PrimitiveHandler {
 	 * arguments.
 	 * <p>
 	 * If arguments are required by the function, then this call will fail if
-	 * there isn't exactly one argument, and this argument must be an
-	 * S-Expression.
+	 * there isn't exactly one argument, and this argument must be a Node.
 	 * 
 	 * @param name
 	 *            the function alias.
@@ -74,7 +72,7 @@ public class PrimitiveHandler {
 				if (!methodsWithArgs.contains(m)) {
 					return (Node) m.invoke(null);
 				}
-				if (arg.length != 1 || (!(arg[0] instanceof SExpression))) {
+				if (arg.length != 1) {
 					throw new IllegalArgumentException(
 							"Must supply one S-Expression arg");
 				}

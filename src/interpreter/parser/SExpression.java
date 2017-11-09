@@ -145,7 +145,7 @@ public class SExpression extends Node {
 	@Override
 	public Node eval(boolean literal) {
 		String ad = addr.eval().toString();
-		SExpression formals = null;
+		Node formals = null;
 		Environment env = Environment.getInstance();
 
 		if (literal && Pat.ATOM_NUM.matches(ad)) {
@@ -166,8 +166,10 @@ public class SExpression extends Node {
 			return ListFuncs.defun((SExpression) data);
 		} else if (ad.matches("LAMBDA")) {
 			return ListFuncs.lambda((SExpression) data);
-		} else {
+		} else if (data instanceof SExpression) {
 			formals = (SExpression) data;
+		} else {
+			formals = data;
 		}
 
 		return env.invokePrim(ad, formals);

@@ -216,18 +216,18 @@ public class Environment {
 	}
 
 	/**
-	 * Invokes a primitive with a given alias and SExpression by calling the
+	 * Invokes a primitive with a given alias and Node by calling the
 	 * PrimitiveHandler method.
 	 * 
 	 * @param name
 	 *            the alias of the function
-	 * @param sexp
-	 *            the sexpression argument, null for a boolean function
+	 * @param formals
+	 *            the Node argument, null for a boolean function
 	 * @return the Node constructed by invoking the primitive function
 	 * @see PrimitiveHandler#callFunc(String, Object...)
 	 */
-	public Node invokePrim(String name, SExpression sexp) {
-		return handler.callFunc(name, sexp);
+	public Node invokePrim(String name, Node formals) {
+		return handler.callFunc(name, formals);
 	}
 
 	/**
