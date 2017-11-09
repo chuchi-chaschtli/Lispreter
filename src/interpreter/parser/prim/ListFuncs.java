@@ -46,7 +46,7 @@ public final class ListFuncs implements PrimitiveMarker {
 		return new Atom(name);
 	}
 
-	@Primitive(aliases = { "lambda", "Λ", "λ" })
+	@Primitive(aliases = { "lambda", "λ" })
 	public static Node lambda(SExpression sexp) {
 		SExpression dTokens = new SExpression(sexp.getDataTokens());
 		Node formals = Node.makeNode(dTokens.getAddrTokens());
