@@ -67,7 +67,7 @@ public class PrimitiveHandler {
 	 */
 	public Node callFunc(String name, Object... arg) {
 		if (primitives.containsKey(name.toUpperCase())) {
-			Method m = primitives.get(name);
+			Method m = primitives.get(name.toUpperCase());
 			try {
 				if (!methodsWithArgs.contains(m)) {
 					return (Node) m.invoke(null);
