@@ -87,13 +87,13 @@ public final class MathFuncs implements PrimitiveMarker {
 				.getData()));
 	}
 
-	@Primitive(aliases = "<=")
+	@Primitive(aliases = "leq")
 	public static Node leq(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr()) <= toInteger(sexp
 				.getData()));
 	}
 
-	@Primitive(aliases = ">=")
+	@Primitive(aliases = "geq")
 	public static Node geq(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr()) >= toInteger(sexp
 				.getData()));
