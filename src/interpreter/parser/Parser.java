@@ -5,6 +5,7 @@ package interpreter.parser;
 
 import interpreter.util.ListUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ public class Parser {
 	private List<Tree> statements;
 
 	public Parser(List<String> tokens) {
+		statements = new ArrayList<>();
 		List<String> tmp;
 		int i = 0, j = 0, k = 0;
 		while (i < tokens.size() && i > -1) {
