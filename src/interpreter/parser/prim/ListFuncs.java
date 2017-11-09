@@ -72,7 +72,7 @@ public final class ListFuncs implements PrimitiveMarker {
 	@Primitive(aliases = "cons")
 	public static Node cons(SExpression sexp) {
 		return new SExpression(sexp.getAddr().eval(), new SExpression(
-				sexp.getDataTokens()).eval());
+				sexp.getDataTokens()).getAddr().eval());
 	}
 
 	/**
