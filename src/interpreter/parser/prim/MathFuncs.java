@@ -34,26 +34,62 @@ public final class MathFuncs implements PrimitiveMarker {
 
 	@Primitive(aliases = "sum")
 	public static Node plus(SExpression sexp) {
-		return Node.makeNode(toInteger(sexp.getAddr())
-				+ toInteger(sexp.getData()));
+		Node evaluatedAddr = sexp.getAddr().eval();
+		if (evaluatedAddr.isList()) {
+			return plus(new SExpression(evaluatedAddr));
+		}
+		Node data = sexp.getData();
+
+		int sum = toInteger(sexp.getAddr());
+		if (!data.eval(true).equals(Node.makeNode(false))) {
+			sum += toInteger(plus(new SExpression(data)));
+		}
+		return Node.makeNode(sum);
 	}
 
 	@Primitive(aliases = "difference")
 	public static Node minus(SExpression sexp) {
-		return Node.makeNode(toInteger(sexp.getAddr())
-				- toInteger(sexp.getData()));
+		Node evaluatedAddr = sexp.getAddr().eval();
+		if (evaluatedAddr.isList()) {
+			return minus(new SExpression(evaluatedAddr));
+		}
+		Node data = sexp.getData();
+
+		int diff = toInteger(sexp.getAddr());
+		if (!data.eval(true).equals(Node.makeNode(false))) {
+			diff -= toInteger(minus(new SExpression(data)));
+		}
+		return Node.makeNode(diff);
 	}
 
 	@Primitive(aliases = "product")
 	public static Node product(SExpression sexp) {
-		return Node.makeNode(toInteger(sexp.getAddr())
-				* toInteger(sexp.getData()));
+		Node evaluatedAddr = sexp.getAddr().eval();
+		if (evaluatedAddr.isList()) {
+			return product(new SExpression(evaluatedAddr));
+		}
+		Node data = sexp.getData();
+
+		int prod = toInteger(sexp.getAddr());
+		if (!data.eval(true).equals(Node.makeNode(false))) {
+			prod *= toInteger(product(new SExpression(data)));
+		}
+		return Node.makeNode(prod);
 	}
 
 	@Primitive(aliases = "quotient")
 	public static Node quotient(SExpression sexp) {
-		return Node.makeNode(toInteger(sexp.getAddr())
-				/ toInteger(sexp.getData()));
+		Node evaluatedAddr = sexp.getAddr().eval();
+		if (evaluatedAddr.isList()) {
+			return quotient(new SExpression(evaluatedAddr));
+		}
+		Node data = sexp.getData();
+
+		int quot = toInteger(sexp.getAddr());
+		if (!data.eval(true).equals(Node.makeNode(false))) {
+			quot /= toInteger(quotient(new SExpression(data)));
+		}
+		return Node.makeNode(quot);
 	}
 
 	@Primitive(aliases = "rem")
