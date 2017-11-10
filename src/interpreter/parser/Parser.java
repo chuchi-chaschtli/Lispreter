@@ -5,6 +5,7 @@ package interpreter.parser;
 
 import interpreter.util.ListUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +38,17 @@ public class Parser {
 	}
 
 	public void eval() {
+		try {
+			eval(System.out);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void eval(Appendable out) throws IOException {
 		for (Tree t : statements) {
-			System.out.println(t.eval());
+			out.append(t.eval()).append("\n");
 		}
 	}
 }
