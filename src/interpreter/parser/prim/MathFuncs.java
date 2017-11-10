@@ -104,12 +104,15 @@ public final class MathFuncs implements PrimitiveMarker {
 
 		int quot = toInteger(sexp.getAddr());
 		if (!data.eval(true).toString().matches("NIL")) {
+			int dividend;
 			try {
-				quot /= toInteger(quotient(new SExpression(data)));
+				dividend = toInteger(quotient(new SExpression(data)));
 			}
 			catch (NodeInitException e) {
-				quot /= toInteger(data);
+				dividend = toInteger(data);
 			}
+			checkZero(dividend);
+			quot /= dividend;
 		}
 		return Node.makeNode(quot);
 	}
@@ -117,13 +120,13 @@ public final class MathFuncs implements PrimitiveMarker {
 	@Primitive(aliases = "rem")
 	public static Node remainder(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr())
-				% toInteger(sexp.getData()));
+				% checkZero(toInteger(sexp.getData())));
 	}
 
 	@Primitive(aliases = "mod")
 	public static Node mod(SExpression sexp) {
 		return Node.makeNode(Math.floorMod(toInteger(sexp.getAddr()),
-				toInteger(sexp.getData())));
+				checkZero(toInteger(sexp.getData()))));
 	}
 
 	@Primitive(aliases = "expt")
@@ -168,4 +171,12 @@ public final class MathFuncs implements PrimitiveMarker {
 	private static int toInteger(Node n) {
 		return Integer.parseInt(n.eval(true).toString());
 	}
+
+	private static int checkZero(int x) {
+		if (x == 0) {
+			throw new ArithmeticZeroError();
+		}
+		return x;
+	}
+
 }
