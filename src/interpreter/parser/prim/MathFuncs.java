@@ -3,6 +3,7 @@
  */
 package interpreter.parser.prim;
 
+import interpreter.exception.ArithmeticZeroError;
 import interpreter.exception.NodeInitException;
 import interpreter.parser.Node;
 import interpreter.parser.SExpression;
@@ -64,7 +65,7 @@ public final class MathFuncs implements PrimitiveMarker {
 		int diff = toInteger(sexp.getAddr());
 		if (!data.eval(true).toString().matches("NIL")) {
 			try {
-				diff -= toInteger(plus(new SExpression(data)));
+				diff -= toInteger(minus(new SExpression(data)));
 			}
 			catch (NodeInitException e) {
 				diff -= toInteger(data);
@@ -84,7 +85,7 @@ public final class MathFuncs implements PrimitiveMarker {
 		int prod = toInteger(sexp.getAddr());
 		if (!data.eval(true).toString().matches("NIL")) {
 			try {
-				prod *= toInteger(plus(new SExpression(data)));
+				prod *= toInteger(product(new SExpression(data)));
 			}
 			catch (NodeInitException e) {
 				prod *= toInteger(data);
@@ -104,7 +105,7 @@ public final class MathFuncs implements PrimitiveMarker {
 		int quot = toInteger(sexp.getAddr());
 		if (!data.eval(true).toString().matches("NIL")) {
 			try {
-				quot /= toInteger(plus(new SExpression(data)));
+				quot /= toInteger(quotient(new SExpression(data)));
 			}
 			catch (NodeInitException e) {
 				quot /= toInteger(data);
