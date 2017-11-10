@@ -3,6 +3,7 @@
  */
 package interpreter.parser.prim;
 
+import interpreter.exception.NodeInitException;
 import interpreter.parser.Node;
 import interpreter.parser.SExpression;
 import interpreter.util.Pat;
@@ -41,8 +42,13 @@ public final class MathFuncs implements PrimitiveMarker {
 		Node data = sexp.getData();
 
 		int sum = toInteger(sexp.getAddr());
-		if (!data.eval(true).equals(Node.makeNode(false))) {
-			sum += toInteger(plus(new SExpression(data)));
+		if (!data.eval(true).toString().matches("NIL")) {
+			try {
+				sum += toInteger(plus(new SExpression(data)));
+			}
+			catch (NodeInitException e) {
+				sum += toInteger(data);
+			}
 		}
 		return Node.makeNode(sum);
 	}
@@ -56,8 +62,13 @@ public final class MathFuncs implements PrimitiveMarker {
 		Node data = sexp.getData();
 
 		int diff = toInteger(sexp.getAddr());
-		if (!data.eval(true).equals(Node.makeNode(false))) {
-			diff -= toInteger(minus(new SExpression(data)));
+		if (!data.eval(true).toString().matches("NIL")) {
+			try {
+				diff -= toInteger(plus(new SExpression(data)));
+			}
+			catch (NodeInitException e) {
+				diff -= toInteger(data);
+			}
 		}
 		return Node.makeNode(diff);
 	}
@@ -71,8 +82,13 @@ public final class MathFuncs implements PrimitiveMarker {
 		Node data = sexp.getData();
 
 		int prod = toInteger(sexp.getAddr());
-		if (!data.eval(true).equals(Node.makeNode(false))) {
-			prod *= toInteger(product(new SExpression(data)));
+		if (!data.eval(true).toString().matches("NIL")) {
+			try {
+				prod *= toInteger(plus(new SExpression(data)));
+			}
+			catch (NodeInitException e) {
+				prod *= toInteger(data);
+			}
 		}
 		return Node.makeNode(prod);
 	}
@@ -86,8 +102,13 @@ public final class MathFuncs implements PrimitiveMarker {
 		Node data = sexp.getData();
 
 		int quot = toInteger(sexp.getAddr());
-		if (!data.eval(true).equals(Node.makeNode(false))) {
-			quot /= toInteger(quotient(new SExpression(data)));
+		if (!data.eval(true).toString().matches("NIL")) {
+			try {
+				quot /= toInteger(plus(new SExpression(data)));
+			}
+			catch (NodeInitException e) {
+				quot /= toInteger(data);
+			}
 		}
 		return Node.makeNode(quot);
 	}
