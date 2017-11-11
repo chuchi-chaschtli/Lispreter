@@ -133,13 +133,7 @@ public final class ListUtils {
 				result.add("NIL");
 			}
 		} else {
-			int openParen = list.indexOf("(");
-			if (list.contains("[") && list.indexOf("[") < openParen) {
-				openParen = list.indexOf("[");
-			}
-			if (list.contains("{") && list.indexOf("{") < openParen) {
-				openParen = list.indexOf("{");
-			}
+			int openParen = findFirstOpenParen(list);
 			if (openParen > 0) {
 				result.addAll(subList(list, 0, openParen));
 				result.addAll(inDotNotation(subList(list, openParen, true)));
@@ -148,5 +142,16 @@ public final class ListUtils {
 			}
 		}
 		return result;
+	}
+
+	public static int findFirstOpenParen(List<String> tokens) {
+		int retVal = tokens.indexOf("(");
+		if (tokens.contains("[") && tokens.indexOf("[") < retVal) {
+			retVal = tokens.indexOf("[");
+		}
+		if (tokens.contains("{") && tokens.indexOf("{") < retVal) {
+			retVal = tokens.indexOf("{");
+		}
+		return retVal;
 	}
 }
