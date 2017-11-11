@@ -4,7 +4,6 @@
 package interpreter.parser.func;
 
 import interpreter.exception.FuncDefException;
-import interpreter.exception.NodeInitException;
 import interpreter.parser.Node;
 import interpreter.parser.SExpression;
 
@@ -47,14 +46,17 @@ public final class UserDef extends Function {
 			return env;
 		}
 		SExpression s = new SExpression(actuals);
-		for (String f : params) {
+		for (int i = 0; i < params.size(); i++) {
+			String f = params.get(i);
 			env.put(f, s.getAddr().eval());
 			try {
 				s = new SExpression(s.getDataTokens());
 			}
-			catch (NodeInitException e) {
-				throw new FuncDefException("Too few args for function : "
-						+ name);
+			catch (Exception e) {
+				if (i < params.size() - 1) {
+					throw new FuncDefException("Too few args for function : "
+							+ name);
+				}
 			}
 		}
 

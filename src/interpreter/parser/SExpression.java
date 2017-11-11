@@ -177,8 +177,9 @@ public class SExpression extends Node {
 		Environment environ = Environment.getInstance();
 		Hashtable<String, Node> outdated = environ.getVariables();
 		environ.substitute(env);
+		Node retVal = eval(literal);
 		environ.setVariables(outdated);
-		return eval(literal);
+		return retVal;
 	}
 
 	@Override

@@ -22,18 +22,18 @@ public class Parser {
 		List<String> tmp;
 		int i = 0, j = 0, k = 0;
 		while (i < tokens.size() && i > -1) {
-			j = tokens.subList(i, tokens.size()).indexOf("(");
+			j = ListUtils.subList(tokens, i , true).indexOf("(");
 			if (j == i) {
-				k = ListUtils.clauseEnd(ListUtils.subList(tokens, i, true)) + i;
+				k = ListUtils.clauseEnd(ListUtils.subList(tokens, i, true)) + i + 1;
 			} else if (j > i) {
-				k = j - 1;
+				k = j;
 			} else {
-				k = tokens.size() - 1;
+				k = tokens.size();
 			}
-			tmp = ListUtils.inDotNotation(ListUtils.subList(tokens, i, k + 1,
+			tmp = ListUtils.inDotNotation(ListUtils.subList(tokens, i, k,
 					true));
 			statements.add(new Tree(tmp));
-			i = k + 1;
+			i = k;
 		}
 	}
 
