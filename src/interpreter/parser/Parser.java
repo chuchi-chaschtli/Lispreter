@@ -22,7 +22,7 @@ public class Parser {
 		List<String> tmp;
 		int i = 0, j = 0, k = 0;
 		while (i < tokens.size() && i > -1) {
-			j = ListUtils.subList(tokens, i , true).indexOf("(");
+			j = ListUtils.subList(tokens, i , true).indexOf("(") + i;
 			if (j == i) {
 				k = ListUtils.clauseEnd(ListUtils.subList(tokens, i, true)) + i + 1;
 			} else if (j > i) {
