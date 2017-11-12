@@ -71,17 +71,33 @@ public class Parser {
 	/**
 	 * Evaluates the parsing tree and sends the output to {@code output}.
 	 * 
+	 * @param sep
+	 *            the separator between individual components.
+	 * @return the Appendable object.
 	 * @throws IOException
 	 *             if an I/O error occurs from the Appendable object.
 	 */
-	public void eval() {
+	public Appendable eval(String sep) {
 		try {
-			for (Tree t : statements) {
-				output.append(t.eval()).append("\n");
+			for (int i = 0; i < statements.size(); i++) {
+				output.append(statements.get(i).eval()).append(
+						i == statements.size() - 1 ? "" : sep);
 			}
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+		return output;
+	}
+
+	/**
+	 * Convenience method to evaluate the parsing tree and each evaluation
+	 * occurs on a separate line.
+	 * 
+	 * @return the Appendable object.
+	 * @see #eval(String)
+	 */
+	public Appendable eval() {
+		return eval("\n");
 	}
 }
