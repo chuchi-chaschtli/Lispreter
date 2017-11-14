@@ -4,6 +4,7 @@
 package interpreter.parser;
 
 import interpreter.exception.EnvironmentException;
+import interpreter.exception.FuncDefException;
 import interpreter.parser.func.Function;
 import interpreter.parser.prim.PrimitiveHandler;
 
@@ -88,9 +89,8 @@ public class Environment {
 	 *            the literal or sexp function body.
 	 */
 	public void registerFunc(String name, Node args, Node body) {
-		if (name.equals("lambda")) {
-			registerAnon(args, body);
-			return;
+		if (name.toLowerCase().matches("lambda|λ")) {
+			throw new FuncDefException("Use the anonymous function registration to register a lambda expression.");
 		}
 		functions.put(name, new Function(name, args, body));
 	}
@@ -104,7 +104,6 @@ public class Environment {
 	 *            the literal or sexp function body.
 	 */
 	public void registerAnon(Node args, Node body) {
-		lambdas.clear();
 		lambdas.put(args, new Function("lambda", args, body));
 	}
 
@@ -165,7 +164,7 @@ public class Environment {
 	 * @return true if the function name is in the hashtable, false otherwise.
 	 */
 	public boolean isDefinedF(String name) {
-		return functions.containsKey(name) || lambdas.containsKey(name);
+		return functions.containsKey(name);
 	}
 
 	/**

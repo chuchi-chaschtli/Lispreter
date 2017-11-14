@@ -160,7 +160,7 @@ public class SExpression extends Node {
 				sexp = new SExpression(sexp.addr.eval().tokens);
 			}
 			formals = sexp;
-		} else if (ad.toUpperCase().matches("LAMBDA")) {
+		} else if (ad.toUpperCase().matches("Λ|LAMBDA")) {
 			formals = this;
 		}
 
