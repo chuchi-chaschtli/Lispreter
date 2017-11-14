@@ -15,9 +15,9 @@ import java.util.List;
 /**
  * Data structure for Lisp function definitions. A function is instantiated with
  * at least a Node for its formal parameters and a Node for its body. The
- * formals are converted from string form to a List form.
- * <p>
- * Functions itself are abstract, and cannot be instanitated.
+ * formals are converted from string form to a List form. All functions have a
+ * name identifier, which much be used when they are called. Since anonymous
+ * functions do not require this specification, the dummy tag 'lambda' is used.
  * 
  * @author Anand
  *
@@ -31,8 +31,8 @@ public class Function {
 	/**
 	 * Constructs a function with formal parameters and a function body.
 	 * 
-	 * @param the
-	 *            String tag
+	 * @param name
+	 *            the String tag
 	 * @param params
 	 *            a Node of parameters.
 	 * @param body
