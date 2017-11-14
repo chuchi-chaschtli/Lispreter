@@ -8,6 +8,7 @@ import interpreter.parser.Atom;
 import interpreter.parser.Environment;
 import interpreter.parser.Node;
 import interpreter.parser.SExpression;
+import interpreter.parser.func.ClosureState;
 import interpreter.util.Pat;
 
 /**
@@ -48,13 +49,20 @@ public final class ListFuncs implements PrimitiveMarker {
 
 	@Primitive(aliases = { "lambda", "λ" })
 	public static Node lambda(SExpression sexp) {
-		SExpression dTokens = new SExpression(sexp.getDataTokens());
-		Node formals = Node.makeNode(dTokens.getAddrTokens());
-		Node body = Node.makeNode(new SExpression(dTokens.getDataTokens())
-				.getAddrTokens());
-		Environment.getInstance().registerAnon(formals, body);
-
-		return new Atom("lambda");
+		Node addr = sexp.getAddr();
+		Node data = sexp.getData();
+		Environment env = Environment.getInstance();
+		
+		ClosureState.changeState();
+		if (ClosureState.isEvaluatingLambda()) {
+			SExpression nested = new SExpression(data);
+			env.registerAnon(nested.getAddr(),
+					new SExpression(nested.getData()).getAddr());
+			return new Atom("lambda");
+		}
+		return env.execLamb(
+				new SExpression(new SExpression(addr).getData()).getAddr(),
+				data);
 	}
 
 	/**

@@ -5,7 +5,6 @@ package interpreter.parser;
 
 import interpreter.exception.NodeInitException;
 import interpreter.parser.prim.BoolFuncs;
-import interpreter.parser.prim.ListFuncs;
 import interpreter.util.ListUtils;
 import interpreter.util.Pat;
 
@@ -143,30 +142,26 @@ public class SExpression extends Node {
 
 	@Override
 	public Node eval(boolean literal) {
-		String ad = addr.eval().toString();
-		Node formals = null;
+		String ad = addr.eval(true).toString();
+		Node formals = data;
 		Environment env = Environment.getInstance();
 
 		if (literal && Pat.ATOM_NUM.matches(ad)) {
 			return addr.eval();
-		} else if (ad.matches("T|NIL")) {
+		} else if (ad.toUpperCase().matches("T|NIL")) {
 			return BoolFuncs.boolFuncFactory(ad);
 		} else if (env.isDefinedV(ad)) {
 			return env.getVariableValue(ad);
 		} else if (env.isDefinedF(ad)) {
-			return env.exec(ad, Node.makeNode(dataTokens));
-		} else if (ad.matches("CAR|CDR")) {
+			return env.execFunc(ad, Node.makeNode(dataTokens));
+		} else if (ad.toUpperCase().matches("CAR|CDR")) {
 			SExpression sexp = new SExpression(dataTokens);
 			if (data.isList()) {
 				sexp = new SExpression(sexp.addr.eval().tokens);
 			}
 			formals = sexp;
-		} else if (ad.matches("DEFUN")) {
-			return ListFuncs.defun((SExpression) data);
-		} else if (ad.matches("LAMBDA")) {
-			return ListFuncs.lambda((SExpression) data);
-		} else {
-			formals = data;
+		} else if (ad.toUpperCase().matches("LAMBDA")) {
+			formals = this;
 		}
 
 		return env.invokePrim(ad, formals);

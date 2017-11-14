@@ -4,8 +4,7 @@
 package interpreter.parser;
 
 import interpreter.exception.EnvironmentException;
-import interpreter.parser.func.Closure;
-import interpreter.parser.func.UserDef;
+import interpreter.parser.func.Function;
 import interpreter.parser.prim.PrimitiveHandler;
 
 import java.util.Hashtable;
@@ -22,8 +21,8 @@ import java.util.Set;
  */
 public class Environment {
 
-	private Hashtable<String, UserDef> functions = new Hashtable<>();
-	private Hashtable<Node, Closure> lambdas = new Hashtable<>();
+	private Hashtable<String, Function> functions = new Hashtable<>();
+	private Hashtable<Node, Function> lambdas = new Hashtable<>();
 	private Hashtable<String, Node> variables = new Hashtable<>();
 
 	private PrimitiveHandler handler;
@@ -65,15 +64,16 @@ public class Environment {
 	 * @throws EnvironmentException
 	 *             if the given function name has not been defined.
 	 */
-	public Node exec(String name, Node args) {
+	public Node execFunc(String name, Node args) {
 		if (!isDefinedF(name)) {
 			throw new EnvironmentException("The function " + name
 					+ " is undefined.");
 		}
-		if (lambdas.containsKey(args)) {
-			return lambdas.get(args).eval(args);
-		}
 		return functions.get(name).eval(args);
+	}
+
+	public Node execLamb(Node args, Node body) {
+		return lambdas.get(args).eval(body);
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class Environment {
 			registerAnon(args, body);
 			return;
 		}
-		functions.put(name, new UserDef(name, args, body));
+		functions.put(name, new Function(name, args, body));
 	}
 
 	/**
@@ -104,7 +104,8 @@ public class Environment {
 	 *            the literal or sexp function body.
 	 */
 	public void registerAnon(Node args, Node body) {
-		lambdas.put(args, new Closure(args, body));
+		lambdas.clear();
+		lambdas.put(args, new Function("lambda", args, body));
 	}
 
 	/**

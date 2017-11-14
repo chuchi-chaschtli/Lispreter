@@ -5,6 +5,7 @@ package interpreter.parser.func;
 
 import interpreter.exception.FuncDefException;
 import interpreter.parser.Node;
+import interpreter.parser.SExpression;
 import interpreter.util.Pat;
 
 import java.util.ArrayList;
@@ -21,20 +22,23 @@ import java.util.List;
  * @author Anand
  *
  */
-public abstract class Function {
+public class Function {
 
-	protected List<String> params;
-	protected Node body;
+	private final String name;
+	private List<String> params;
+	private Node body;
 
 	/**
 	 * Constructs a function with formal parameters and a function body.
 	 * 
+	 * @param the
+	 *            String tag
 	 * @param params
 	 *            a Node of parameters.
 	 * @param body
 	 *            a Node for the function body
 	 */
-	public Function(Node params, Node body) {
+	public Function(String name, Node params, Node body) {
 		if (!(params.isList() || params.toString().equals("NIL"))) {
 			throw new FuncDefException("Invalid function parameters");
 		}
@@ -43,6 +47,7 @@ public abstract class Function {
 		}
 		this.params = convertParams(params.toString());
 		this.body = body;
+		this.name = name;
 	}
 
 	/**
@@ -93,7 +98,35 @@ public abstract class Function {
 	 *            the Node of actual parameters.
 	 * @return a binding table.
 	 */
-	protected abstract Hashtable<String, Node> bind(Node actuals);
+	protected Hashtable<String, Node> bind(Node actuals) {
+		Hashtable<String, Node> env = new Hashtable<>();
+		if (!actuals.isList()) {
+			if (!actuals.toString().equals("NIL")) {
+				throw new FuncDefException(
+						"Invalid parameters passed in bind operation.");
+			}
+			return env;
+		}
+		SExpression s = new SExpression(actuals);
+		for (int i = 0; i < params.size(); i++) {
+			String f = params.get(i);
+			env.put(f, s.getAddr().eval());
+			try {
+				s = new SExpression(s.getDataTokens());
+			}
+			catch (Exception e) {
+				if (i < params.size() - 1) {
+					throw new FuncDefException("Too few args for function : "
+							+ name);
+				}
+			}
+		}
+
+		if (s.getData().eval().toString().equals("NIL")) {
+			return env;
+		}
+		throw new FuncDefException("Too many args for function : " + name);
+	}
 
 	@Override
 	public int hashCode() {
