@@ -1,4 +1,4 @@
-# /test/files/factorial.lisp -> /test/files/fact-output.txt
+;; /test/files/factorial.lisp -> /test/files/fact-output.txt
 (defun factorial (n)
 	(if (<= n 1)
 		1

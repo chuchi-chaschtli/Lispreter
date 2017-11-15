@@ -38,9 +38,11 @@ public final class Lexer {
 		Scanner scan = new Scanner(stream);
 		while (scan.hasNextLine()) {
 			String line = scan.nextLine();
-			if (!line.startsWith("#")) {
-				buffy.append(line);
+			int commentIndex = line.indexOf(';');
+			if (commentIndex < 0) {
+				commentIndex = line.length();
 			}
+			buffy.append(line.substring(0, commentIndex));
 		}
 		prog = buffy.toString();
 		scan.close();

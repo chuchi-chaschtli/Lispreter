@@ -1,10 +1,10 @@
-# test/files/input.lisp -> corresponding output target : test/files/output.txt
-# this is a comment.
-# comments are ignored by the lexer.
+;; test/files/input.lisp -> corresponding output target : test/files/output.txt
+; this is a comment.
+; comments are ignored by the lexer.
 (sum 5 6 7)
 
-###### comments can be any line dedicated to comments only, and may have any number of '#' signs.
-(product (sum 3 3) (sum 2 2))
+;;; comments can be any line dedicated to comments only, and may have any number of ';' signs.
+(product (sum 3 3) (sum 2 2)) ;; this is in end-of-line comment.
 
 (defun sumpartials (x y z) (sum (product x y) (product x z) (product y z)))
 

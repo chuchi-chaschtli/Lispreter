@@ -1,6 +1,6 @@
-# /test/files/fibonacci.lisp -> /test/files/fib-output.txt
-# This is super inefficient, in general and when passed through the interpreter
-# But so far, the support isn't written to do this the dynamic way :(
+;; /test/files/fibonacci.lisp -> /test/files/fib-output.txt
+;; This is super inefficient, in general and when passed through the interpreter
+;; But so far, the support isn't written to do this the dynamic way :(
 (defun fibonacci (n)
 	(cond
 		[(<= n 1) n]
@@ -12,4 +12,4 @@
 (fibonacci 2)
 (fibonacci 3)
 (fibonacci 4)
-(fibonacci 7)
+(fibonacci 7) ;; at this point it really starts to slow down...
