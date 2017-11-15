@@ -97,7 +97,7 @@ public final class ListFuncs implements PrimitiveMarker {
 	@Primitive(aliases = "cond")
 	public static Node cond(SExpression sexp) {
 		SExpression addr = new SExpression(sexp.getAddrTokens());
-		if (addr.getAddr().eval().toString().equals("T")) {
+		if (addr.getAddr().eval().toString().equalsIgnoreCase("T")) {
 			return new SExpression(addr.getDataTokens()).getAddr().eval(true);
 		}
 		return cond(new SExpression(sexp.getDataTokens()));

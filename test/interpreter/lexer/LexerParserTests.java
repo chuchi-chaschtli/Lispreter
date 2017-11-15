@@ -70,6 +70,15 @@ public class LexerParserTests {
 	}
 
 	@Test
+	public void testCond() {
+		Lexer l = new Lexer(
+				"(defun fibonacci (n) (cond [(<= n 1) n] [t (+ (fibonacci (- n 1)) (fibonacci (- n 2)))])) "
+						+ "(fibonacci 0) (fibonacci 1) (fibonacci 2) (fibonacci 4) (fibonacci 7)");
+		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
+				.eval().toString(), "fibonacci\n0\n1\n1\n3\n13");
+	}
+
+	@Test
 	public void testParenTypes() throws IOException {
 		String result = "sumdouble\ntriplesumdouble\n24\n54";
 		Lexer l = new Lexer(
