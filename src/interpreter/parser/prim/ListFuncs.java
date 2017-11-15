@@ -105,11 +105,11 @@ public final class ListFuncs implements PrimitiveMarker {
 
 	@Primitive(aliases = "if")
 	public static Node ifelse(SExpression sexp) {
-		SExpression addr = new SExpression(sexp.getAddrTokens());
-		if (addr.getAddr().eval().toString().equals("T")) {
-			return new SExpression(addr.getDataTokens()).getAddr().eval(true);
+		SExpression dTokens = new SExpression(sexp.getDataTokens());
+		if (Node.makeNode(sexp.getAddrTokens()).eval().toString().equals("T")) {
+			return dTokens.getAddr().eval(true);
 		}
-		return new SExpression(sexp.getDataTokens()).eval(true);
+		return dTokens.getData().eval(true);
 	}
 
 	/**

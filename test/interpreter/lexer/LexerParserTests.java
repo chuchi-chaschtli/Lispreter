@@ -62,6 +62,14 @@ public class LexerParserTests {
 	}
 
 	@Test
+	public void testIf() {
+		Lexer l = new Lexer(
+				"(if (eq 1 1) 5 18) (if (eq 1 0) 5 18) (if T 0 1) (if NIL 0 1)");
+		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
+				.eval().toString(), "5\n18\n0\n1");
+	}
+
+	@Test
 	public void testParenTypes() throws IOException {
 		String result = "sumdouble\ntriplesumdouble\n24\n54";
 		Lexer l = new Lexer(
