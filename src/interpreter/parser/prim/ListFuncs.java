@@ -82,6 +82,11 @@ public final class ListFuncs implements PrimitiveMarker {
 		return new SExpression(sexp.getAddr().eval(), new SExpression(
 				sexp.getDataTokens()).getAddr().eval());
 	}
+	
+	@Primitive(aliases = "list")
+	public static Node list(SExpression sexp) {
+		return new SExpression(sexp);
+	}
 
 	/**
 	 * Evaluates a list of conditions until one's first evaluates to True, then

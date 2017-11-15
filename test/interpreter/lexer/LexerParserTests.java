@@ -89,6 +89,22 @@ public class LexerParserTests {
 	}
 
 	@Test
+	public void testList() {
+		Lexer l = new Lexer(
+				"(list 1 2 3 4) (list 1) (list NIL) (list \"a\" \"b\")");
+		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
+				.eval().toString(), "(1 2 3 4)\n(1)\n(NIL)\n(\"a\" \"b\")");
+	}
+
+	@Test
+	public void testCarCdr() {
+		Lexer l = new Lexer(
+				"(car (list 1 2 3 4)) (cdr (list 1 2 3 4)) (car (cons 1 (cons 2 NIL))) (cdr (cons 1 (cons 2 (cons 3 NIL))))");
+		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
+				.eval().toString(), "1\n(2 3 4)\n1\n((cons 2 (cons 3 NIL)))");
+	}
+
+	@Test
 	public void testParenTypes() throws IOException {
 		String result = "sumdouble\ntriplesumdouble\n24\n54";
 		Lexer l = new Lexer(
