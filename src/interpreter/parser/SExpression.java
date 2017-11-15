@@ -157,7 +157,7 @@ public class SExpression extends Node {
 		} else if (ad.toUpperCase().matches("CAR|CDR")) {
 			SExpression sexp = new SExpression(dataTokens);
 			if (data.isList()) {
-				sexp = new SExpression(sexp.addr.eval().tokens);
+				sexp = new SExpression(new SExpression(sexp.addr).data);
 			}
 			formals = sexp;
 		} else if (ad.toUpperCase().matches("Λ|LAMBDA")) {
