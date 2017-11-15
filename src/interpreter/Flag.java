@@ -67,7 +67,7 @@ public enum Flag {
 					"Invalid number of arguments specified for this flag.");
 		}
 		for (int i = 0; i < argsNeeded; i++) {
-			result[i] = args[i + offset];
+			result[i] = args[i + offset + 1];
 		}
 		return result;
 	}
