@@ -79,6 +79,13 @@ public class LexerParserTests {
 	}
 
 	@Test
+	public void testQuote() {
+		Lexer l = new Lexer("(quote (+ 1 2)) (' (* (+ 3 5) (- 2 2)))");
+		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
+				.eval().toString(), "(+ 1 2)\n(* (+ 3 5) (- 2 2))");
+	}
+
+	@Test
 	public void testParenTypes() throws IOException {
 		String result = "sumdouble\ntriplesumdouble\n24\n54";
 		Lexer l = new Lexer(
