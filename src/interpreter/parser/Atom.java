@@ -34,8 +34,12 @@ public class Atom extends Node {
 	 *             if the string is not well formed.
 	 */
 	public Atom(String lit) {
-		if (!(Pat.LITERAL.matches(lit) || Pat.ATOM_NUM.matches(lit)
-				|| Pat.SYMBOL.matches(lit) || Pat.RELATIONAL_OP.matches(lit))) {
+		if (!(Pat.LITERAL.matches(lit)
+				|| Pat.ATOM_NUM.matches(lit)
+				|| Pat.SYMBOL.matches(lit)
+				|| (Pat.STRING_ID.matches(lit.charAt(0)) && Pat.STRING_ID
+						.matches(lit.charAt(lit.length() - 1))) || Pat.RELATIONAL_OP
+					.matches(lit))) {
 			throw new NodeInitException("Invalid atom specified");
 		}
 		tokens.add(this.lit = lit);

@@ -109,6 +109,9 @@ public final class Lexer {
 					} else {
 						tokens.add("" + c);
 					}
+				} else if (Pat.STRING_ID.matches(c)) {
+					next = prog.indexOf("\"", counter + 1) + 1; 
+					tokens.add(prog.substring(counter, next));
 				}
 				counter = next;
 			}

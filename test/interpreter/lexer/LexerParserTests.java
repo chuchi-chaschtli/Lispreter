@@ -83,6 +83,9 @@ public class LexerParserTests {
 		Lexer l = new Lexer("(quote (+ 1 2)) (' (* (+ 3 5) (- 2 2)))");
 		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
 				.eval().toString(), "(+ 1 2)\n(* (+ 3 5) (- 2 2))");
+		l = new Lexer("(' (cons \"This is a string\" (+ 3 3)))");
+		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
+				.eval().toString(), "(cons \"This is a string\" (+ 3 3))");
 	}
 
 	@Test

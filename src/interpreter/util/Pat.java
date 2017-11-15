@@ -18,6 +18,7 @@ public enum Pat {
 	PAREN_OPEN("[({\\[]"),
 	PAREN_CLOSE("[)}\\]]"),
 	RELATIONAL_OP(">=|<="),
+	STRING_ID("[\"]"),
 	SYMBOL("[(){}\\[\\].\\+\\-\\*/=\\^<>']"),
 	VALID_FUNC("[a-zA-Z]{1}[a-zA-Z0-9]*"),
 	WHITESPACE("[\\s]+?");
