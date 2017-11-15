@@ -34,7 +34,7 @@ public final class MathFuncs implements PrimitiveMarker {
 	 * integer evaluations for basic math operations.
 	 */
 
-	@Primitive(aliases = "sum")
+	@Primitive(aliases = { "sum", "+" })
 	public static Node plus(SExpression sexp) {
 		Node evaluatedAddr = sexp.getAddr().eval();
 		if (evaluatedAddr.isList()) {
@@ -54,7 +54,7 @@ public final class MathFuncs implements PrimitiveMarker {
 		return Node.makeNode(sum);
 	}
 
-	@Primitive(aliases = "difference")
+	@Primitive(aliases = { "difference", "-" })
 	public static Node minus(SExpression sexp) {
 		Node evaluatedAddr = sexp.getAddr().eval();
 		if (evaluatedAddr.isList()) {
@@ -74,7 +74,7 @@ public final class MathFuncs implements PrimitiveMarker {
 		return Node.makeNode(diff);
 	}
 
-	@Primitive(aliases = "product")
+	@Primitive(aliases = { "product", "*" })
 	public static Node product(SExpression sexp) {
 		Node evaluatedAddr = sexp.getAddr().eval();
 		if (evaluatedAddr.isList()) {
@@ -94,7 +94,7 @@ public final class MathFuncs implements PrimitiveMarker {
 		return Node.makeNode(prod);
 	}
 
-	@Primitive(aliases = "quotient")
+	@Primitive(aliases = { "quotient", "/" })
 	public static Node quotient(SExpression sexp) {
 		Node evaluatedAddr = sexp.getAddr().eval();
 		if (evaluatedAddr.isList()) {
@@ -129,31 +129,31 @@ public final class MathFuncs implements PrimitiveMarker {
 				checkZero(toInteger(sexp.getData()))));
 	}
 
-	@Primitive(aliases = "expt")
+	@Primitive(aliases = { "expt", "^" })
 	public static Node expt(SExpression sexp) {
 		return Node.makeNode((int) Math.pow(toInteger(sexp.getAddr()),
 				toInteger(sexp.getData())));
 	}
 
-	@Primitive(aliases = "less")
+	@Primitive(aliases = { "less", "<"})
 	public static Node less(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr()) < toInteger(sexp
 				.getData()));
 	}
 
-	@Primitive(aliases = "greater")
+	@Primitive(aliases = { "greater", ">"})
 	public static Node greater(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr()) > toInteger(sexp
 				.getData()));
 	}
 
-	@Primitive(aliases = "leq")
+	@Primitive(aliases = {"leq", "<="})
 	public static Node leq(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr()) <= toInteger(sexp
 				.getData()));
 	}
 
-	@Primitive(aliases = "geq")
+	@Primitive(aliases = {"geq", ">="})
 	public static Node geq(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr()) >= toInteger(sexp
 				.getData()));

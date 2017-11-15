@@ -99,7 +99,14 @@ public final class Lexer {
 					}
 					tokens.add(prog.substring(counter, next));
 				} else if (Pat.SYMBOL.matches(c)) {
-					tokens.add("" + c);
+					if (counter + 1 < prog.length()
+							&& Pat.RELATIONAL_OP.matches(prog.substring(
+									counter, counter + 2))) {
+						tokens.add(prog.substring(counter, counter + 2));
+						next++;
+					} else {
+						tokens.add("" + c);
+					}
 				}
 				counter = next;
 			}

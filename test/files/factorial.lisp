@@ -1,8 +1,8 @@
 # /test/files/factorial.lisp -> /test/files/fact-output.txt
 (defun factorial (n)
-	(if (eq n 0)
+	(if (<= n 1)
 		1
-		(product n (factorial (difference n 1)))))
+		(* n (factorial (- n 1)))))
 		
 (factorial 0)
 (factorial 1)

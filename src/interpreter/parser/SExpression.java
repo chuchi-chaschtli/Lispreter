@@ -162,7 +162,7 @@ public class SExpression extends Node {
 			formals = sexp;
 		} else if (ad.toUpperCase().matches("Λ|LAMBDA")) {
 			formals = this;
-		}
+		} 
 
 		return env.invokePrim(ad, formals);
 	}

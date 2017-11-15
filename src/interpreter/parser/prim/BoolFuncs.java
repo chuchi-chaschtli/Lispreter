@@ -35,7 +35,7 @@ public final class BoolFuncs implements PrimitiveMarker {
 	 *            the S-Expression to evaluate.
 	 * @return T or NIL nodes.
 	 */
-	@Primitive(aliases = { "eq", "equalp" })
+	@Primitive(aliases = { "eq", "equalp", "="})
 	public static Node eq(SExpression sexp) {
 		return Node.makeNode(sexp.getAddr().eval(true).toString()
 				.equals(sexp.getData().eval(true).toString()));
