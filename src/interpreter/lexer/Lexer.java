@@ -5,12 +5,12 @@ package interpreter.lexer;
 
 import interpreter.util.Pat;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Lexer for the Lisp class. Deconstructs meaningful symbols and expression in a
@@ -34,13 +34,23 @@ public final class Lexer {
 	 *             if the input stream could not be read.
 	 */
 	public Lexer(InputStream stream) throws IOException {
-		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-		byte[] buffer = new byte[1024];
-		int length = 0;
-		while ((length = stream.read(buffer)) != -1) {
-			byteStream.write(buffer, 0, length);
+		StringBuffer buffy = new StringBuffer();
+		Scanner scan = new Scanner(stream);
+		while (scan.hasNextLine()) {
+			String line = scan.nextLine();
+			if (!line.startsWith("#")) {
+				buffy.append(line);
+			}
 		}
-		prog = byteStream.toString("UTF-8");
+		prog = buffy.toString();
+		scan.close();
+		// ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+		// byte[] buffer = new byte[1024];
+		// int length = 0;
+		// while ((length = stream.read(buffer)) != -1) {
+		// byteStream.write(buffer, 0, length);
+		// }
+		// prog = byteStream.toString("UTF-8");
 		tokenize();
 	}
 
