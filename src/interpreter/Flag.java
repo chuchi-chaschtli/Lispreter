@@ -13,6 +13,9 @@ package interpreter;
  * <p>
  * If an error occurs during program evaluation, {@code -d} can be specified to
  * debug the execution.
+ * <p>
+ * {@code -s} can be specified to enable the following argument to be an
+ * evaluation separator.
  * 
  * @author Anand
  *
@@ -20,7 +23,8 @@ package interpreter;
 public enum Flag {
 	DEBUG("-d"),
 	INPUT_FILE("-i(n)?", 1),
-	OUTPUT_FILE("-o(ut)?", 1);
+	OUTPUT_FILE("-o(ut)?", 1),
+	SEP("-s", 1);
 
 	private String regex;
 	private int argsNeeded;

@@ -35,7 +35,12 @@ public class Lispreter {
 			} else {
 				parser = new Parser(lexer.getTokens());
 			}
-			parser.eval();
+			
+			String sep = "\n";
+			if (Flag.SEP.containsFlag(args)) {
+				sep = Flag.SEP.getParts(args)[0];
+			}
+			parser.eval(sep);
 			if (writer != null) {
 				writer.close();
 			}
