@@ -35,12 +35,12 @@ public final class BoolFuncs implements PrimitiveMarker {
 	 *            the S-Expression to evaluate.
 	 * @return T or NIL nodes.
 	 */
-	@Primitive(aliases = { "eq", "equalp", "="})
+	@Primitive(aliases = { "eq", "equalp", "=" })
 	public static Node eq(SExpression sexp) {
 		return Node.makeNode(sexp.getAddr().eval(true).toString()
 				.equals(sexp.getData().eval(true).toString()));
 	}
-	
+
 	/**
 	 * Checks if the data of the given S-Expression is NIL.
 	 * 
@@ -49,9 +49,8 @@ public final class BoolFuncs implements PrimitiveMarker {
 	 * @return T or NIL if the S-Expression is NIL.
 	 */
 	@Primitive(aliases = { "null", "endp" })
-	public static Node endp(Node n) {
-		return Node
-				.makeNode(n.eval(true).toString().equals("NIL"));
+	public static Node endp(SExpression sexp) {
+		return Node.makeNode(sexp.getAddr().eval().toString().equals("NIL"));
 	}
 
 	@Primitive(aliases = { "atom" })

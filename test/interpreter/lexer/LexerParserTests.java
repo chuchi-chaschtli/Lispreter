@@ -131,6 +131,15 @@ public class LexerParserTests {
 		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
 				.eval().toString(), result);
 	}
+
+	@Test
+	public void testNull() {
+		Lexer l = new Lexer(
+				"(null 3) (null NIL) (null T) (null (list 1 2 3)) (null (cons 1 (cons 2 NIL)))");
+		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
+				.eval().toString(), "NIL\nT\nNIL\nNIL\nNIL");
+	}
+
 	// @Test
 	// public void testRelationalOps() {
 	// Lexer l;
