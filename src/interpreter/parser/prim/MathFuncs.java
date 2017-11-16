@@ -25,8 +25,9 @@ public final class MathFuncs implements PrimitiveMarker {
 	 * @return T or NIL if the given S-Expression is an integer.
 	 */
 	@Primitive(aliases = "integerp")
-	public static Node integerp(Node n) {
-		return Node.makeNode(Pat.ATOM_NUM.matches(n.eval(true).toString()));
+	public static Node integerp(SExpression sexp) {
+		return Node.makeNode(Pat.ATOM_NUM.matches(sexp.getAddr().eval()
+				.toString()));
 	}
 
 	/**
@@ -135,25 +136,25 @@ public final class MathFuncs implements PrimitiveMarker {
 				toInteger(sexp.getData())));
 	}
 
-	@Primitive(aliases = { "less", "<"})
+	@Primitive(aliases = { "less", "<" })
 	public static Node less(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr()) < toInteger(sexp
 				.getData()));
 	}
 
-	@Primitive(aliases = { "greater", ">"})
+	@Primitive(aliases = { "greater", ">" })
 	public static Node greater(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr()) > toInteger(sexp
 				.getData()));
 	}
 
-	@Primitive(aliases = {"leq", "<="})
+	@Primitive(aliases = { "leq", "<=" })
 	public static Node leq(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr()) <= toInteger(sexp
 				.getData()));
 	}
 
-	@Primitive(aliases = {"geq", ">="})
+	@Primitive(aliases = { "geq", ">=" })
 	public static Node geq(SExpression sexp) {
 		return Node.makeNode(toInteger(sexp.getAddr()) >= toInteger(sexp
 				.getData()));

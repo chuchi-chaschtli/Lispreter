@@ -135,9 +135,17 @@ public class LexerParserTests {
 	@Test
 	public void testNull() {
 		Lexer l = new Lexer(
-				"(null 3) (null NIL) (null T) (null (list 1 2 3)) (null (cons 1 (cons 2 NIL)))");
+				"(null 3) (null NIL) (null T) (null (list 1 2 3)) (null (list NIL)) (null (cons 1 (cons 2 NIL)))");
 		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
-				.eval().toString(), "NIL\nT\nNIL\nNIL\nNIL");
+				.eval().toString(), "NIL\nT\nNIL\nNIL\nT\nNIL");
+	}
+
+	@Test
+	public void testIntegerp() {
+		Lexer l = new Lexer(
+				"(integerp 5) (integerp 0) (integerp \"a\") (integerp T) (integerp (first (list 3 3 4)))");
+		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
+				.eval().toString(), "T\nT\nNIL\nNIL\nT");
 	}
 
 	// @Test

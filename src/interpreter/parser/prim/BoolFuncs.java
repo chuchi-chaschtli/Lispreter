@@ -50,7 +50,12 @@ public final class BoolFuncs implements PrimitiveMarker {
 	 */
 	@Primitive(aliases = { "null", "endp" })
 	public static Node endp(SExpression sexp) {
-		return Node.makeNode(sexp.getAddr().eval().toString().equals("NIL"));
+		Node addr = sexp.getAddr();
+		boolean bool = addr.eval().toString().equals("NIL");
+		if (addr.isList()) {
+			bool = new SExpression(addr).getData().eval(true).toString().equals("NIL");
+		}
+		return Node.makeNode(bool);
 	}
 
 	@Primitive(aliases = { "atom" })

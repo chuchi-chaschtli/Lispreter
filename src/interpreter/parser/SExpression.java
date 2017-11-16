@@ -154,15 +154,20 @@ public class SExpression extends Node {
 			return env.getVariableValue(ad);
 		} else if (env.isDefinedF(ad)) {
 			return env.execFunc(ad, Node.makeNode(dataTokens));
-		} else if (ad.toUpperCase().matches("CAR|CDR")) {
+		} else if (ad.toUpperCase().matches("CAR|CDR|FIRST|REST")) {
 			SExpression sexp = new SExpression(dataTokens);
 			if (data.isList()) {
-				sexp = new SExpression(new SExpression(sexp.addr).data);
+				try {
+					sexp = new SExpression(new SExpression(sexp.addr).data);
+				}
+				catch (Exception e) {
+					return env.invokePrim(ad, sexp);
+				}
 			}
 			formals = sexp;
 		} else if (ad.toUpperCase().matches("Λ|LAMBDA")) {
 			formals = this;
-		} 
+		}
 
 		return env.invokePrim(ad, formals);
 	}
