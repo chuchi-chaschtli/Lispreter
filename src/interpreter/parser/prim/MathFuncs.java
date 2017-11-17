@@ -20,14 +20,20 @@ public final class MathFuncs implements PrimitiveMarker {
 	/**
 	 * Checks if the address of the given S-Expression is an integer.
 	 * 
-	 * @param sexp
+	 * @param n
 	 *            the S-Expression to evaluate.
 	 * @return T or NIL if the given S-Expression is an integer.
 	 */
 	@Primitive(aliases = "integerp")
-	public static Node integerp(SExpression sexp) {
-		return Node.makeNode(Pat.ATOM_NUM.matches(sexp.getAddr().eval()
-				.toString()));
+	public static Node integerp(Node n) {
+		Node toEval = n;
+		try {
+			SExpression sexp = (SExpression) n;
+			toEval = sexp.getAddr();
+		}
+		catch (Exception e) {}
+		return Node
+				.makeNode(Pat.ATOM_NUM.matches(toEval.eval(true).toString()));
 	}
 
 	/**

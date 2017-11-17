@@ -1,0 +1,9 @@
+andmap
+ormap
+filter
+NIL
+T
+T
+NIL
+(1 2 4)
+(1 2 3)

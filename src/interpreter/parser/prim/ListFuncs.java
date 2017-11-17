@@ -18,12 +18,24 @@ import interpreter.util.Pat;
 public final class ListFuncs implements PrimitiveMarker {
 
 	@Primitive(aliases = { "car", "first" })
-	public static Node car(SExpression sexp) {
+	public static Node car(Node n) {
+		SExpression sexp;
+		if (n.isList()) {
+			sexp = (SExpression) n;
+		} else {
+			sexp = ((SExpression) n.eval());
+		}
 		return sexp.getAddr();
 	}
 
 	@Primitive(aliases = { "cdr", "rest" })
-	public static Node cdr(SExpression sexp) {
+	public static Node cdr(Node n) {
+		SExpression sexp;
+		if (n.isList()) {
+			sexp = (SExpression) n;
+		} else {
+			sexp = ((SExpression) n.eval());
+		}
 		return sexp.getData();
 	}
 
@@ -52,7 +64,7 @@ public final class ListFuncs implements PrimitiveMarker {
 		Node addr = sexp.getAddr();
 		Node data = sexp.getData();
 		Environment env = Environment.getInstance();
-		
+
 		ClosureState.changeState();
 		if (ClosureState.isEvaluatingLambda()) {
 			SExpression nested = new SExpression(data);
@@ -75,14 +87,14 @@ public final class ListFuncs implements PrimitiveMarker {
 	 * 
 	 * @param sexp
 	 *            S-Expression arguments.
-	 * @return (cons (car s) (cadr s))
+	 * @return (cons (car sexp) (cadr sexp))
 	 */
 	@Primitive(aliases = "cons")
 	public static Node cons(SExpression sexp) {
-		return new SExpression(sexp.getAddr().eval(), new SExpression(
-				sexp.getDataTokens()).getAddr().eval());
+		Node cadr = new SExpression(sexp.getDataTokens()).getAddr();
+		return new SExpression(sexp.getAddr().eval(),cadr.eval());
 	}
-	
+
 	@Primitive(aliases = "list")
 	public static Node list(SExpression sexp) {
 		return new SExpression(sexp);

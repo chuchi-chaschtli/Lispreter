@@ -148,6 +148,19 @@ public class LexerParserTests {
 				.eval().toString(), "T\nT\nNIL\nNIL\nT");
 	}
 
+	@Test
+	public void testMap() {
+		Lexer l = new Lexer(
+				"(defun andmap (func lst) (if (endp lst) T (and (func (car lst)) (andmap func (cdr lst))))) "
+						+ "(andmap integerp (list 1 2 \"abc\" T 5 NIL)) (andmap integerp (list 4 5)) "
+						+ "(defun filter (pred lst) (cond [(endp lst) NIL] "
+						+ "[(pred (car lst)) (cons (car lst) (filter pred (cdr lst)))] "
+						+ "[t (filter pred (cdr lst))])) "
+						+ "(filter integerp (list 1 2 \"abc\" T 5 NIL)) (filter integerp (list 4 5))");
+		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
+				.eval().toString(), "andmap\nNIL\nT\nfilter\n(1 2 5)\n(4 5)");
+
+	}
 	// @Test
 	// public void testRelationalOps() {
 	// Lexer l;

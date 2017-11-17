@@ -157,11 +157,10 @@ public class SExpression extends Node {
 		} else if (ad.toUpperCase().matches("CAR|CDR|FIRST|REST")) {
 			SExpression sexp = new SExpression(dataTokens);
 			if (data.isList()) {
-				try {
+				if (sexp.addr.isList()) {
 					sexp = new SExpression(new SExpression(sexp.addr).data);
-				}
-				catch (Exception e) {
-					return env.invokePrim(ad, sexp);
+				} else {
+					return env.invokePrim(ad, sexp.addr);
 				}
 			}
 			formals = sexp;
