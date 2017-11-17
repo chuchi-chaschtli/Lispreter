@@ -3,6 +3,7 @@
  */
 package interpreter.lexer;
 
+import interpreter.exception.MalformedTextException;
 import interpreter.util.Pat;
 
 import java.io.IOException;
@@ -36,8 +37,28 @@ public final class Lexer {
 	public Lexer(InputStream stream) throws IOException {
 		StringBuffer buffy = new StringBuffer();
 		Scanner scan = new Scanner(stream);
+		boolean blockCommentMode = false;
 		while (scan.hasNextLine()) {
 			String line = scan.nextLine();
+			if (line.contains("#|")) {
+				if (!blockCommentMode) {
+					blockCommentMode = true;
+				}
+				continue;
+			} else if (line.contains("|#")) {
+				if (!blockCommentMode) {
+					scan.close();
+					throw new MalformedTextException(
+							"There is no beginning block comment");
+				}
+				blockCommentMode = false;
+				buffy.append(line.substring(line.indexOf("|#") + 2,
+						line.length()));
+				continue;
+			}
+			if (blockCommentMode) {
+				continue;
+			}
 			int commentIndex = line.indexOf(';');
 			if (commentIndex < 0) {
 				commentIndex = line.length();
@@ -110,7 +131,7 @@ public final class Lexer {
 						tokens.add("" + c);
 					}
 				} else if (Pat.STRING_ID.matches(c)) {
-					next = prog.indexOf("\"", counter + 1) + 1; 
+					next = prog.indexOf("\"", counter + 1) + 1;
 					tokens.add(prog.substring(counter, next));
 				}
 				counter = next;
