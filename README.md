@@ -8,9 +8,9 @@ For now, clone the repository and compile it.
 
 The following command line arguments may be specified:
 - `-d` : debug error output to `stdout`.
-- `in <file>` : specify an input file to interpret. Otherwise, defaults to `stdin`.
-- `out <file>` : specify an output file to interpret. Otherwise, defaults to `stdout`.
-- `s <string>` : specifies the following string as a separator for each evaluation.  Defaults to `\n`.
+- `-in <file>` : specify an input file to interpret. Otherwise, defaults to `stdin`.
+- `-out <file>` : specify an output file to interpret. Otherwise, defaults to `stdout`.
+- `-s <string>` : specifies the following string as a separator for each evaluation.  Defaults to `\n`.
 
 ## Design
 The main design of this interpreter is separated into two components: the Lexer and
