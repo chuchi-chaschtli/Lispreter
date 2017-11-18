@@ -103,8 +103,9 @@ public class Environment {
 	 * @param body
 	 *            the literal or sexp function body.
 	 */
-	public void registerAnon(Node args, Node body) {
+	public Node registerAnon(Node args, Node body) {
 		lambdas.put(args, new Function("lambda", args, body));
+		return args;
 	}
 
 	/**
@@ -203,6 +204,10 @@ public class Environment {
 	 */
 	public Hashtable<String, Node> getVariables() {
 		return new Hashtable<String, Node>(variables);
+	}
+	
+	public Hashtable<Node, Function> getLambdas() {
+		return new Hashtable<>(lambdas);
 	}
 
 	/**

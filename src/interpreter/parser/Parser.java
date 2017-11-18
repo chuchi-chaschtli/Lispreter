@@ -3,6 +3,7 @@
  */
 package interpreter.parser;
 
+import interpreter.parser.func.ClosureState;
 import interpreter.util.ListUtils;
 
 import java.io.IOException;
@@ -82,6 +83,7 @@ public class Parser {
 			for (int i = 0; i < statements.size(); i++) {
 				output.append(statements.get(i).eval()).append(
 						i == statements.size() - 1 ? "" : sep);
+				ClosureState.reset();
 			}
 		}
 		catch (IOException e) {

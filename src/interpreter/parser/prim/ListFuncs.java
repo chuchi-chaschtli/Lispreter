@@ -65,16 +65,20 @@ public final class ListFuncs implements PrimitiveMarker {
 		Node data = sexp.getData();
 		Environment env = Environment.getInstance();
 
+		// very unclean for now, clean after bug-fixes
 		ClosureState.changeState();
-		if (ClosureState.isEvaluatingLambda()) {
+		if (ClosureState.getNextValue().isEmpty()) {
+			ClosureState.setNextValue(addr.toString());
+		}
+		if (ClosureState.isEvaluatingLambda()
+				&& addr.toString().equals(ClosureState.getNextValue())) {
 			SExpression nested = new SExpression(data);
-			env.registerAnon(nested.getAddr(),
-					new SExpression(nested.getData()).getAddr());
+			ClosureState.setNextNode(env.registerAnon(nested.getAddr(),
+					nested.getData()));
+			ClosureState.setNextValue(addr.toString());
 			return new Atom("lambda");
 		}
-		return env.execLamb(
-				new SExpression(new SExpression(addr).getData()).getAddr(),
-				data);
+		return env.execLamb(ClosureState.getNextNode(), data);
 	}
 
 	/**
