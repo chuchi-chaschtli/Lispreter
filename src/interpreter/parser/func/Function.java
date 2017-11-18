@@ -151,4 +151,10 @@ public class Function {
 		}
 		return params.equals(other.params);
 	}
+
+	@Override
+	public String toString() {
+		return "Function [name=" + name + ", params=" + params + ", body="
+				+ body + "]";
+	}
 }
