@@ -64,9 +64,9 @@ public class LexerParserTests {
 	@Test
 	public void testIf() {
 		Lexer l = new Lexer(
-				"(if (eq 1 1) 5 18) (if (eq 1 0) 5 18) (if T 0 1) (if NIL 0 1)");
+				"(if (eq 1 1) 5 18) (if (eq 1 0) 5 18) (if T 0 1) (if NIL 0 1) (if T (if NIL 0 (if T 1 2)) 3)");
 		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
-				.eval().toString(), "5\n18\n0\n1");
+				.eval().toString(), "5\n18\n0\n1\n1");
 	}
 
 	@Test
@@ -159,8 +159,8 @@ public class LexerParserTests {
 						+ "(filter integerp (list 1 2 \"abc\" T 5 NIL)) (filter integerp (list 4 5))");
 		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
 				.eval().toString(), "andmap\nNIL\nT\nfilter\n(1 2 5)\n(4 5)");
-
 	}
+	
 	// @Test
 	// public void testRelationalOps() {
 	// Lexer l;

@@ -92,7 +92,7 @@ public final class ListFuncs implements PrimitiveMarker {
 	@Primitive(aliases = "cons")
 	public static Node cons(SExpression sexp) {
 		Node cadr = new SExpression(sexp.getDataTokens()).getAddr();
-		return new SExpression(sexp.getAddr().eval(),cadr.eval());
+		return new SExpression(sexp.getAddr().eval(), cadr.eval());
 	}
 
 	@Primitive(aliases = "list")
@@ -126,7 +126,7 @@ public final class ListFuncs implements PrimitiveMarker {
 		if (Node.makeNode(sexp.getAddrTokens()).eval().toString().equals("T")) {
 			return dTokens.getAddr().eval(true);
 		}
-		return dTokens.getData().eval(true);
+		return new SExpression(dTokens.getData()).getAddr().eval(true);
 	}
 
 	/**
