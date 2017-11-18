@@ -65,7 +65,7 @@ public final class ListFuncs implements PrimitiveMarker {
 		Node data = sexp.getData();
 		Environment env = Environment.getInstance();
 
-		// very unclean for now, clean after bug-fixes
+		// TODO : Cleanup and Bug-Fix
 		ClosureState.changeState();
 		if (ClosureState.getNextValue().isEmpty()) {
 			ClosureState.setNextValue(addr.toString());
@@ -101,7 +101,7 @@ public final class ListFuncs implements PrimitiveMarker {
 
 	@Primitive(aliases = "list")
 	public static Node list(SExpression sexp) {
-		return new SExpression(sexp);
+		return new SExpression(sexp.getAddr(), sexp.getData());
 	}
 
 	/**

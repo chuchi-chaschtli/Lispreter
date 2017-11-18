@@ -47,6 +47,17 @@
 ;; [X -> Y] [Y -> Z] [List-of X] -> [List-of Z]
 (defun composeList (f g lst)
     (map (lambda (x) (f (g x))) lst))
+    
+;; [List-of Any] [List-of Any] -> [List-of Any]
+(defun append (l m)
+    (cond [(endp l) m]
+          [t (cons (car l) (append (cdr l) m))]))
+          
+;; [List-of Any] [List-of Any] -> [List-of Any]
+(defun interleave (l m)
+    (cond [(endp l) m]
+          [(endp m) l]
+          [t (cons (car l) (cons (car m) (interleave (cdr l) (cdr m))))]))
         
 ;; Not currently working :[
 (defun map2 (func lst)
@@ -67,4 +78,12 @@
 (foldl - 0 (list 1 2 3 4))
 (addten (list 3 5 7 9))
 (composeList not integerp (list 1 2 "abc" T))
+(append (list 1 2 3) (list 4 5 6))
+(append (cons 1 (cons 2 (cons 3 NIL))) (cons 4 (cons 5 (cons 6 (cons 7 NIL)))))
+(append (list 1 2 3 4) NIL)
+(append NIL (list 1 2 3 4))
+(interleave (list 1 3 5) (list 2 4 6))
+(interleave (cons 1 (cons 2 (cons 3 NIL))) (cons 4 (cons 5 (cons 6 (cons 7 NIL)))))
+(interleave (list 1 2 3 4) NIL)
+(interleave NIL (list 1 2 3 4))
 ;;(map2 integerp (list 1 2 "abc" 5 T))
