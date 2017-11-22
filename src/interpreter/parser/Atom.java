@@ -3,11 +3,11 @@
  */
 package interpreter.parser;
 
-import java.util.Hashtable;
-
 import interpreter.exception.EnvironmentException;
 import interpreter.exception.NodeInitException;
 import interpreter.util.Pat;
+
+import java.util.Hashtable;
 
 /**
  * Atoms are elements of a Lisp program which are strictly alphanumeric
