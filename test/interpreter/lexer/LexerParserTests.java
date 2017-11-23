@@ -91,9 +91,10 @@ public class LexerParserTests {
 	@Test
 	public void testList() {
 		Lexer l = new Lexer(
-				"(list 1 2 3 4) (list 1) (list NIL) (list \"a\" \"b\")");
+				"(list 1 2 3 4) (list 1) (list NIL) (list \"a\" \"b\") (cons 2 (cons 3 NIL))");
 		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
-				.eval().toString(), "(1 2 3 4)\n(1)\n(NIL)\n(\"a\" \"b\")");
+				.eval().toString(),
+				"(1 2 3 4)\n(1)\n(NIL)\n(\"a\" \"b\")\n(2 3)");
 	}
 
 	@Test
@@ -102,6 +103,31 @@ public class LexerParserTests {
 				"(car (list 1 2 3 4)) (cdr (list 1 2 3 4)) (car (cons 1 (cons 2 NIL))) (cdr (cons 1 (cons 2 (cons 3 NIL))))");
 		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
 				.eval().toString(), "1\n(2 3 4)\n1\n((cons 2 (cons 3 NIL)))");
+		l = new Lexer("(car (list 1 2 3 4)) (cdr (list 1 2 3 4))");
+		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
+				.eval().toString(), "1\n(2 3 4)");
+	}
+
+	@Test
+	public void testCons() {
+		Lexer cons = new Lexer("(cons 5 (cons 6 NIL))");
+		Lexer list = new Lexer("(list 5 6)");
+		Assert.assertEquals(new Parser(cons.getTokens(), new StringBuilder())
+				.eval().toString(), new Parser(list.getTokens(),
+				new StringBuilder()).eval().toString());
+		cons = new Lexer("(cons 5 (cons 6 (cons 7 (cons 8 NIL))))");
+		list = new Lexer("(list 5 6 7 8)");
+		Assert.assertEquals(new Parser(cons.getTokens(), new StringBuilder())
+				.eval().toString(), new Parser(list.getTokens(),
+				new StringBuilder()).eval().toString());
+	}
+
+	@Test
+	public void testLength() {
+		Lexer l = new Lexer(
+				"(length (list 1 2 3 4)) (length NIL) (length (cons 1 (cons 2 NIL))) (length (list (list 1 2) (list 3 4) 5 (list 6 (list 7 8))))");
+		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
+				.eval().toString(), "4\n1\n2\n4");;
 	}
 
 	@Test
@@ -160,7 +186,7 @@ public class LexerParserTests {
 		Assert.assertEquals(new Parser(l.getTokens(), new StringBuilder())
 				.eval().toString(), "andmap\nNIL\nT\nfilter\n(1 2 5)\n(4 5)");
 	}
-	
+
 	// @Test
 	// public void testRelationalOps() {
 	// Lexer l;

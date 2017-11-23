@@ -21,9 +21,9 @@ public final class ListFuncs implements PrimitiveMarker {
 	public static Node car(Node n) {
 		SExpression sexp;
 		if (n.isList()) {
-			sexp = (SExpression) n;
+			sexp = new SExpression(n);
 		} else {
-			sexp = ((SExpression) n.eval());
+			sexp = new SExpression(n.eval());
 		}
 		return sexp.getAddr();
 	}
@@ -32,11 +32,11 @@ public final class ListFuncs implements PrimitiveMarker {
 	public static Node cdr(Node n) {
 		SExpression sexp;
 		if (n.isList()) {
-			sexp = (SExpression) n;
+			sexp = new SExpression(n);
 		} else {
-			sexp = ((SExpression) n.eval());
+			sexp = new SExpression(n.eval());
 		}
-		return sexp.getData();
+		return Node.makeNode(sexp.getDataTokens());
 	}
 
 	@Primitive(aliases = { "defun" })
@@ -54,6 +54,7 @@ public final class ListFuncs implements PrimitiveMarker {
 		Node formals = Node.makeNode(dTokens.getAddrTokens());
 		Node body = Node.makeNode(new SExpression(dTokens.getDataTokens())
 				.getAddrTokens());
+
 		Environment.getInstance().registerFunc(name, formals, body);
 
 		return new Atom(name);
@@ -65,7 +66,6 @@ public final class ListFuncs implements PrimitiveMarker {
 		Node data = sexp.getData();
 		Environment env = Environment.getInstance();
 
-		// TODO : Cleanup and Bug-Fix
 		ClosureState.changeState();
 		if (ClosureState.getNextValue().isEmpty()) {
 			ClosureState.setNextValue(addr.toString());
@@ -73,8 +73,7 @@ public final class ListFuncs implements PrimitiveMarker {
 		if (ClosureState.isEvaluatingLambda()
 				&& addr.toString().equals(ClosureState.getNextValue())) {
 			SExpression nested = new SExpression(data);
-			ClosureState.setNextNode(env.registerAnon(nested.getAddr(),
-					nested.getData()));
+			env.registerAnon(nested.getAddr(), nested.getData());
 			ClosureState.setNextValue(addr.toString());
 			return new Atom("lambda");
 		}
@@ -102,6 +101,16 @@ public final class ListFuncs implements PrimitiveMarker {
 	@Primitive(aliases = "list")
 	public static Node list(SExpression sexp) {
 		return new SExpression(sexp.getAddr(), sexp.getData());
+	}
+
+	@Primitive(aliases = "length")
+	public static Node length(Node n) {
+		if (!n.isList()) {
+			return Node.makeNode(0);
+		}
+		SExpression sexp = new SExpression(n);
+		return Node.makeNode(1 + Integer.valueOf(length(sexp.getData())
+				.toString()));
 	}
 
 	/**

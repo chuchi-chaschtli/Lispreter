@@ -98,7 +98,7 @@ public class Function {
 	 *            the Node of actual parameters.
 	 * @return a binding table.
 	 */
-	protected Hashtable<String, Node> bind(Node actuals) {
+	private Hashtable<String, Node> bind(Node actuals) {
 		Hashtable<String, Node> env = new Hashtable<>();
 		if (!actuals.isList()) {
 			if (!actuals.toString().equals("NIL")) {
@@ -110,9 +110,12 @@ public class Function {
 		SExpression s = new SExpression(actuals);
 		for (int i = 0; i < params.size(); i++) {
 			String f = params.get(i);
-			env.put(f, s.getAddr().eval());
 			try {
+				env.put(f, s.getAddr().eval());
 				s = new SExpression(s.getDataTokens());
+			}
+			catch (NullPointerException e) {
+				env.put(f, Node.makeNode(false));
 			}
 			catch (Exception e) {
 				if (i < params.size() - 1) {

@@ -60,9 +60,12 @@
           [t (cons (car l) (cons (car m) (interleave (cdr l) (cdr m))))]))
         
 ;; Not currently working :[
-(defun map2 (func lst)
-	(foldr (lambda (x z) (cons (func x) z)) NIL lst))
-          
+(defun map2 (f lst)
+	(foldr (lambda (x z) (cons (f x) z)) NIL lst))
+	
+(defun andmap2 (f lst)
+    (foldr (lambda (x z) (and (f x) z)) T lst))
+        
 (map integerp (list 1 2 "abc" T))
 (andmap integerp (list 1 2 "abc" T))
 (andmap integerp (list 1 2 3 4))
@@ -87,3 +90,5 @@
 (interleave (list 1 2 3 4) NIL)
 (interleave NIL (list 1 2 3 4))
 ;;(map2 integerp (list 1 2 "abc" 5 T))
+(andmap2 integerp (list 1 2 3 4))
+(andmap2 integerp (list 2 3 "abc" 3))

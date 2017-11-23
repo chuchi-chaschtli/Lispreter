@@ -153,19 +153,26 @@ public class SExpression extends Node {
 		} else if (env.isDefinedV(ad)) {
 			return env.getVariableValue(ad);
 		} else if (env.isDefinedF(ad)) {
-			return env.execFunc(ad, Node.makeNode(dataTokens));
+			return env.execFunc(ad, data);
+		} else if (ad.toUpperCase().matches("LENGTH")) {
+			try {
+				formals = new SExpression(new SExpression(data).getAddr())
+						.getData();
+			}
+			catch (Exception e) {}
+
+		} else if (ad.toUpperCase().matches("Λ|LAMBDA")) {
+			formals = this;
 		} else if (ad.toUpperCase().matches("CAR|CDR|FIRST|REST")) {
 			SExpression sexp = new SExpression(dataTokens);
 			if (data.isList()) {
-				if (sexp.addr.isList()) {
-					sexp = new SExpression(new SExpression(sexp.addr).data);
+				Node address = sexp.addr;
+				if (address.isList()) {
+					formals = new SExpression(new SExpression(address).data);
 				} else {
-					return env.invokePrim(ad, sexp.addr);
+					formals = address;
 				}
 			}
-			formals = sexp;
-		} else if (ad.toUpperCase().matches("Λ|LAMBDA")) {
-			formals = this;
 		}
 
 		return env.invokePrim(ad, formals);
@@ -243,5 +250,39 @@ public class SExpression extends Node {
 	 */
 	public List<String> getDataTokens() {
 		return new ArrayList<String>(dataTokens);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((addr == null) ? 0 : addr.hashCode());
+		result = prime * result
+				+ ((addrTokens == null) ? 0 : addrTokens.hashCode());
+		result = prime * result + ((data == null) ? 0 : data.hashCode());
+		result = prime * result
+				+ ((dataTokens == null) ? 0 : dataTokens.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (!super.equals(obj)) return false;
+		if (getClass() != obj.getClass()) return false;
+		SExpression other = (SExpression) obj;
+		if (addr == null) {
+			if (other.addr != null) return false;
+		} else if (!addr.equals(other.addr)) return false;
+		if (addrTokens == null) {
+			if (other.addrTokens != null) return false;
+		} else if (!addrTokens.equals(other.addrTokens)) return false;
+		if (data == null) {
+			if (other.data != null) return false;
+		} else if (!data.equals(other.data)) return false;
+		if (dataTokens == null) {
+			if (other.dataTokens != null) return false;
+		}
+		return dataTokens.equals(other.dataTokens);
 	}
 }

@@ -9,6 +9,7 @@ composeList
 append
 interleave
 map2
+andmap2
 (T T NIL NIL)
 NIL
 T
@@ -32,3 +33,5 @@ NIL
 (1 4 2 5 3 6 7)
 (1 2 3 4)
 (1 2 3 4)
+T
+NIL

@@ -5,6 +5,7 @@ package interpreter.parser;
 
 import interpreter.exception.EnvironmentException;
 import interpreter.exception.FuncDefException;
+import interpreter.parser.func.ClosureState;
 import interpreter.parser.func.Function;
 import interpreter.parser.prim.PrimitiveHandler;
 
@@ -103,9 +104,9 @@ public class Environment {
 	 * @param body
 	 *            the literal or sexp function body.
 	 */
-	public Node registerAnon(Node args, Node body) {
+	public void registerAnon(Node args, Node body) {
 		lambdas.put(args, new Function("lambda", args, body));
-		return args;
+		ClosureState.setNextNode(args);
 	}
 
 	/**
