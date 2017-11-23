@@ -35,3 +35,18 @@ either be a primitive operation (aka, essentially hard-coded) or a user-defined 
 A user-defined function can be anonymous. Since all functions are stored by the Environment,
 lookup becomes trivial. An Environment may be updated given an old environment state, or
 a mapping of alias -> node values.
+
+## Contributing
+
+This project is open-source, and falls under the [GNU GPLv3 License](https://github.com/AoHRuthless/Lispreter/blob/master/LICENSE).
+As such, feel free to contribute.
+
+#### Style Guidelines
+- Wrap lines at 80 characters.
+- The indentation hierarchy is 4 spaces.
+- Open brackets on same line, use brackets even for one-line statements.
+
+#### To-Do
+- Bug Fixes. See the [Issue Tracker](https://github.com/AoHRuthless/Lispreter/issues).
+- Support for constants and structs.
+- Recursive Tail Optimization. Java 8 fails to support any TCO whatsoever, unlike CL, which tremendously slows the interpreter operations.
