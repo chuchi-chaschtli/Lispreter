@@ -11,39 +11,48 @@ import interpreter.parser.Node;
  */
 public class ClosureState {
 
-	private static boolean lambda = false;
-	private static Node nextNode = null;
-	private static String nextValue = "";
+	private boolean lambda = false;
+	private Node nextNode = null;
+	private String nextValue = "";
+
+	private static ClosureState instance;
 
 	private ClosureState() {
-		throw new AssertionError("Cannot instantiate Closure Evaluation class");
+		reset();
 	}
 
-	public static void changeState() {
+	public static ClosureState getInstance() {
+		if (instance == null) {
+			instance = new ClosureState();
+		}
+		return instance;
+	}
+
+	public void changeState() {
 		lambda = !lambda;
 	}
 
-	public static boolean isEvaluatingLambda() {
+	public boolean isEvaluatingLambda() {
 		return lambda;
 	}
 
-	public static Node getNextNode() {
+	public Node getNextNode() {
 		return nextNode;
 	}
 
-	public static void setNextNode(Node next) {
+	public void setNextNode(Node next) {
 		nextNode = next;
 	}
 
-	public static String getNextValue() {
+	public String getNextValue() {
 		return nextValue;
 	}
 
-	public static void setNextValue(String next) {
+	public void setNextValue(String next) {
 		nextValue = next;
 	}
 
-	public static void reset() {
+	public void reset() {
 		lambda = false;
 		nextNode = null;
 		nextValue = "";

@@ -91,7 +91,8 @@ public class Environment {
 	 */
 	public void registerFunc(String name, Node args, Node body) {
 		if (name.toLowerCase().matches("lambda|λ")) {
-			throw new FuncDefException("Use the anonymous function registration to register a lambda expression.");
+			throw new FuncDefException(
+					"Use the anonymous function registration to register a lambda expression.");
 		}
 		functions.put(name, new Function(name, args, body));
 	}
@@ -106,7 +107,7 @@ public class Environment {
 	 */
 	public void registerAnon(Node args, Node body) {
 		lambdas.put(args, new Function("lambda", args, body));
-		ClosureState.setNextNode(args);
+		ClosureState.getInstance().setNextNode(args);
 	}
 
 	/**
@@ -206,7 +207,7 @@ public class Environment {
 	public Hashtable<String, Node> getVariables() {
 		return new Hashtable<String, Node>(variables);
 	}
-	
+
 	public Hashtable<Node, Function> getLambdas() {
 		return new Hashtable<>(lambdas);
 	}

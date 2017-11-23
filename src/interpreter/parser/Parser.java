@@ -83,7 +83,7 @@ public class Parser {
 			for (int i = 0; i < statements.size(); i++) {
 				output.append(statements.get(i).eval()).append(
 						i == statements.size() - 1 ? "" : sep);
-				ClosureState.reset();
+				ClosureState.getInstance().reset();
 			}
 		}
 		catch (IOException e) {
