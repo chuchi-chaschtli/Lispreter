@@ -102,7 +102,12 @@ public final class ListFuncs implements PrimitiveMarker {
 
 	@Primitive(aliases = "list")
 	public static Node list(SExpression sexp) {
-		return new SExpression(sexp.getAddr(), sexp.getData());
+		Node evalAddr = sexp.getAddr().eval(true);
+		Node data = sexp.getData();
+		if (data.isList()) {
+			return new SExpression(evalAddr, list(new SExpression(data)));
+		}
+		return new SExpression(evalAddr, data);
 	}
 
 	@Primitive(aliases = "length")
