@@ -15,7 +15,7 @@ import interpreter.util.Pat;
  * @author Anand
  *
  */
-public final class ListFuncs implements PrimitiveMarker {
+public final class ListFuncs {
 
 	@Primitive(aliases = { "car", "first" })
 	public static Node car(Node n) {
@@ -104,6 +104,9 @@ public final class ListFuncs implements PrimitiveMarker {
 	public static Node list(SExpression sexp) {
 		Node evalAddr = sexp.getAddr().eval(true);
 		Node data = sexp.getData();
+		// if (evalAddr.isList()) {
+		// evalAddr = new SExpression(NodeFactory.makeNode("list"), evalAddr);
+		// }
 		if (data.isList()) {
 			return new SExpression(evalAddr, list(new SExpression(data)));
 		}

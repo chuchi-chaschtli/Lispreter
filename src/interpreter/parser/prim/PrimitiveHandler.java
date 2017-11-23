@@ -116,7 +116,7 @@ public class PrimitiveHandler {
 	 * @throws SecurityException
 	 *             if a security violation occurred.
 	 */
-	private void register(Class<? extends PrimitiveMarker> clazz) {
+	private void register(Class<?> clazz) {
 		try {
 			for (Method m : PrimitiveHandler.class.getClassLoader()
 					.loadClass(clazz.getName()).getMethods()) {

@@ -16,7 +16,7 @@ import interpreter.util.Pat;
  * @author Anand
  *
  */
-public final class MathFuncs implements PrimitiveMarker {
+public final class MathFuncs {
 
 	/**
 	 * Checks if the address of the given S-Expression is an integer.

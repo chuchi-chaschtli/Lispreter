@@ -15,7 +15,7 @@ import interpreter.parser.SExpression;
  * @author Anand
  *
  */
-public class PredFuncs implements PrimitiveMarker {
+public class PredFuncs {
 
 	/**
 	 * Computes the logical AND of all provided arguments.
