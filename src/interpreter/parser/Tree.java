@@ -23,7 +23,7 @@ public final class Tree {
 	 *            a List of Strings.
 	 */
 	protected Tree(List<String> outer) {
-		root = Node.makeNode(outer);
+		root = NodeFactory.makeNode(outer);
 	}
 
 	protected String eval() {

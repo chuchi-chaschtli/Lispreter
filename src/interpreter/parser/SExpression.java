@@ -4,7 +4,6 @@
 package interpreter.parser;
 
 import interpreter.exception.NodeInitException;
-import interpreter.parser.prim.BoolFuncs;
 import interpreter.util.ListUtils;
 import interpreter.util.Pat;
 
@@ -73,8 +72,8 @@ public class SExpression extends Node {
 	 *            the to-copy S-Expression.
 	 */
 	public SExpression(SExpression sexp) {
-		data = Node.makeNode(sexp.dataTokens);
-		addr = Node.makeNode(sexp.addrTokens);
+		data = NodeFactory.makeNode(sexp.dataTokens);
+		addr = NodeFactory.makeNode(sexp.addrTokens);
 		dataTokens = new ArrayList<String>(sexp.dataTokens);
 		addrTokens = new ArrayList<String>(sexp.addrTokens);
 	}
@@ -109,8 +108,8 @@ public class SExpression extends Node {
 			dataTokens = ListUtils.subList(tokens, index + 1,
 					tokens.size() - 1, true);
 
-			data = Node.makeNode(dataTokens);
-			addr = Node.makeNode(addrTokens);
+			data = NodeFactory.makeNode(dataTokens);
+			addr = NodeFactory.makeNode(addrTokens);
 			buildTokens();
 			return;
 		}
@@ -149,7 +148,7 @@ public class SExpression extends Node {
 		if (literal && Pat.ATOM_NUM.matches(ad)) {
 			return addr.eval();
 		} else if (ad.toUpperCase().matches("T|NIL")) {
-			return BoolFuncs.boolFuncFactory(ad);
+			return NodeFactory.makeBooleanNode(ad);
 		} else if (env.isDefinedV(ad)) {
 			return env.getVariableValue(ad);
 		} else if (env.isDefinedF(ad)) {

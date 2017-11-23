@@ -6,6 +6,7 @@ package interpreter.parser.prim;
 import interpreter.exception.ArithmeticZeroError;
 import interpreter.exception.NodeInitException;
 import interpreter.parser.Node;
+import interpreter.parser.NodeFactory;
 import interpreter.parser.SExpression;
 import interpreter.util.Pat;
 
@@ -32,8 +33,8 @@ public final class MathFuncs implements PrimitiveMarker {
 			toEval = sexp.getAddr();
 		}
 		catch (Exception e) {}
-		return Node
-				.makeNode(Pat.ATOM_NUM.matches(toEval.eval(true).toString()));
+		return NodeFactory.makeNode(Pat.ATOM_NUM.matches(toEval.eval(true)
+				.toString()));
 	}
 
 	/**
@@ -58,7 +59,7 @@ public final class MathFuncs implements PrimitiveMarker {
 				sum += toInteger(data);
 			}
 		}
-		return Node.makeNode(sum);
+		return NodeFactory.makeNode(sum);
 	}
 
 	@Primitive(aliases = { "difference", "-" })
@@ -78,7 +79,7 @@ public final class MathFuncs implements PrimitiveMarker {
 				diff -= toInteger(data);
 			}
 		}
-		return Node.makeNode(diff);
+		return NodeFactory.makeNode(diff);
 	}
 
 	@Primitive(aliases = { "product", "*" })
@@ -98,7 +99,7 @@ public final class MathFuncs implements PrimitiveMarker {
 				prod *= toInteger(data);
 			}
 		}
-		return Node.makeNode(prod);
+		return NodeFactory.makeNode(prod);
 	}
 
 	@Primitive(aliases = { "quotient", "/" })
@@ -121,48 +122,48 @@ public final class MathFuncs implements PrimitiveMarker {
 			checkZero(dividend);
 			quot /= dividend;
 		}
-		return Node.makeNode(quot);
+		return NodeFactory.makeNode(quot);
 	}
 
 	@Primitive(aliases = "rem")
 	public static Node remainder(SExpression sexp) {
-		return Node.makeNode(toInteger(sexp.getAddr())
+		return NodeFactory.makeNode(toInteger(sexp.getAddr())
 				% checkZero(toInteger(sexp.getData())));
 	}
 
 	@Primitive(aliases = "mod")
 	public static Node mod(SExpression sexp) {
-		return Node.makeNode(Math.floorMod(toInteger(sexp.getAddr()),
+		return NodeFactory.makeNode(Math.floorMod(toInteger(sexp.getAddr()),
 				checkZero(toInteger(sexp.getData()))));
 	}
 
 	@Primitive(aliases = { "expt", "^" })
 	public static Node expt(SExpression sexp) {
-		return Node.makeNode((int) Math.pow(toInteger(sexp.getAddr()),
+		return NodeFactory.makeNode((int) Math.pow(toInteger(sexp.getAddr()),
 				toInteger(sexp.getData())));
 	}
 
 	@Primitive(aliases = { "less", "<" })
 	public static Node less(SExpression sexp) {
-		return Node.makeNode(toInteger(sexp.getAddr()) < toInteger(sexp
+		return NodeFactory.makeNode(toInteger(sexp.getAddr()) < toInteger(sexp
 				.getData()));
 	}
 
 	@Primitive(aliases = { "greater", ">" })
 	public static Node greater(SExpression sexp) {
-		return Node.makeNode(toInteger(sexp.getAddr()) > toInteger(sexp
+		return NodeFactory.makeNode(toInteger(sexp.getAddr()) > toInteger(sexp
 				.getData()));
 	}
 
 	@Primitive(aliases = { "leq", "<=" })
 	public static Node leq(SExpression sexp) {
-		return Node.makeNode(toInteger(sexp.getAddr()) <= toInteger(sexp
+		return NodeFactory.makeNode(toInteger(sexp.getAddr()) <= toInteger(sexp
 				.getData()));
 	}
 
 	@Primitive(aliases = { "geq", ">=" })
 	public static Node geq(SExpression sexp) {
-		return Node.makeNode(toInteger(sexp.getAddr()) >= toInteger(sexp
+		return NodeFactory.makeNode(toInteger(sexp.getAddr()) >= toInteger(sexp
 				.getData()));
 	}
 

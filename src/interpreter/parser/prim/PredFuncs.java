@@ -6,6 +6,7 @@ package interpreter.parser.prim;
 import interpreter.exception.FuncDefException;
 import interpreter.exception.NodeInitException;
 import interpreter.parser.Node;
+import interpreter.parser.NodeFactory;
 import interpreter.parser.SExpression;
 
 /**
@@ -26,13 +27,13 @@ public class PredFuncs implements PrimitiveMarker {
 	@Primitive(aliases = "and")
 	public static Node and(SExpression sexp) {
 		if (sexp.getAddr().eval(true).toString().equals("NIL")) {
-			return BoolFuncs.nil();
+			return NodeFactory.FALSE;
 		}
 		try {
 			return and(new SExpression(sexp.getData()));
 		}
 		catch (NodeInitException e) {
-			return BoolFuncs.t();
+			return NodeFactory.TRUE;
 		}
 	}
 
@@ -46,13 +47,13 @@ public class PredFuncs implements PrimitiveMarker {
 	@Primitive(aliases = "or")
 	public static Node or(SExpression sexp) {
 		if (sexp.getAddr().eval(true).toString().equals("T")) {
-			return BoolFuncs.t();
+			return NodeFactory.TRUE;
 		}
 		try {
 			return or(new SExpression(sexp.getData()));
 		}
 		catch (NodeInitException e) {
-			return BoolFuncs.nil();
+			return NodeFactory.FALSE;
 		}
 	}
 
@@ -70,12 +71,11 @@ public class PredFuncs implements PrimitiveMarker {
 	public static Node not(SExpression sexp) {
 		String evaluation = sexp.getAddr().eval(true).toString();
 		if (evaluation.equals("T")) {
-			evaluation = "NIL";
+			return NodeFactory.FALSE;
 		} else if (evaluation.equals("NIL")) {
-			evaluation = "T";
-		} else {
-			throw new FuncDefException("Cannot negate a non-boolean function");
+			return NodeFactory.TRUE;
 		}
-		return BoolFuncs.boolFuncFactory(evaluation);
+		throw new FuncDefException("Cannot negate a non-boolean function");
+
 	}
 }

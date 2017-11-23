@@ -21,7 +21,7 @@ public class NodeTests {
 	@Test
 	public void testAtomEval() {
 		Atom t = new Atom(true);
-		Node n = Node.makeNode(true);
+		Node n = NodeFactory.TRUE;
 		Assert.assertEquals(n, t.eval());
 		Assert.assertEquals(n, t.eval(false));
 		Assert.assertEquals(n, t.eval(true));
@@ -31,7 +31,7 @@ public class NodeTests {
 		Atom nil = new Atom(false);
 		Assert.assertNotEquals(n, nil);
 
-		n = Node.makeNode(false);
+		n = NodeFactory.FALSE;
 		Assert.assertEquals(n, nil.eval());
 		Assert.assertEquals(n, nil.eval(false));
 		Assert.assertEquals(n, nil.eval(true));
@@ -39,7 +39,7 @@ public class NodeTests {
 		Assert.assertEquals(n, nil);
 		Assert.assertNotEquals(n, t);
 
-		n = Node.makeNode(12);
+		n = NodeFactory.makeNode(12);
 		Atom num = new Atom(12);
 		Assert.assertEquals(n, num.eval());
 		Assert.assertEquals(n, num.eval(false));
@@ -50,28 +50,28 @@ public class NodeTests {
 
 	@Test(expected = NodeInitException.class)
 	public void testMakeNodeErr() {
-		Node.makeNode(new ArrayList<String>());
+		NodeFactory.makeNode(new ArrayList<String>());
 	}
 
 	@Test
 	public void testMakeNodeList() {
 		Assert.assertEquals(new Atom("a"),
-				Node.makeNode(Arrays.asList("a", "b")));
+				NodeFactory.makeNode(Arrays.asList("a", "b")));
 
 		List<String> op = Arrays.asList("(", "SUM", " ", "(", "5", " ", "6",
 				")", ")");
-		Assert.assertEquals(new SExpression(op), Node.makeNode(op));
+		Assert.assertEquals(new SExpression(op), NodeFactory.makeNode(op));
 	}
 
 	@Test
 	public void testIsList() {
-		Assert.assertFalse(Node.makeNode(false).isList());
-		Assert.assertFalse(Node.makeNode(30).isList());
-		Assert.assertTrue(Node
+		Assert.assertFalse(NodeFactory.FALSE.isList());
+		Assert.assertFalse(NodeFactory.makeNode(30).isList());
+		Assert.assertTrue(NodeFactory
 				.makeNode(
 						Arrays.asList("(", "CONS", " ", "(", "5", " ", "NIL",
 								")", ")")).isList());
-		Assert.assertFalse(Node.makeNode(
+		Assert.assertFalse(NodeFactory.makeNode(
 				Arrays.asList("q", "(", "CONS", " ", "(", "5", " ", "NIL", ")",
 						")")).isList());
 	}

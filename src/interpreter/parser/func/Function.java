@@ -5,6 +5,7 @@ package interpreter.parser.func;
 
 import interpreter.exception.FuncDefException;
 import interpreter.parser.Node;
+import interpreter.parser.NodeFactory;
 import interpreter.parser.SExpression;
 import interpreter.util.Pat;
 
@@ -115,7 +116,7 @@ public class Function {
 				s = new SExpression(s.getDataTokens());
 			}
 			catch (NullPointerException e) {
-				env.put(f, Node.makeNode(false));
+				env.put(f, NodeFactory.makeNode(false));
 			}
 			catch (Exception e) {
 				if (i < params.size() - 1) {

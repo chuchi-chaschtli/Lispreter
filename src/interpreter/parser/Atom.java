@@ -23,7 +23,7 @@ import java.util.Hashtable;
  */
 public class Atom extends Node {
 
-	private String lit;
+	private final String lit;
 
 	/**
 	 * Creates an an atom from a well-formed string.
@@ -33,7 +33,7 @@ public class Atom extends Node {
 	 * @throws NodeInitException
 	 *             if the string is not well formed.
 	 */
-	public Atom(String lit) {
+	protected Atom(String lit) {
 		if (!(Pat.LITERAL.matches(lit)
 				|| Pat.ATOM_NUM.matches(lit)
 				|| Pat.SYMBOL.matches(lit)
@@ -51,7 +51,7 @@ public class Atom extends Node {
 	 * @param bool
 	 *            the boolean flag.
 	 */
-	public Atom(boolean bool) {
+	protected Atom(boolean bool) {
 		tokens.add(lit = bool ? "T" : "NIL");
 	}
 
@@ -61,7 +61,7 @@ public class Atom extends Node {
 	 * 
 	 * @param i
 	 */
-	public Atom(int i) {
+	protected Atom(int i) {
 		tokens.add(lit = Integer.toString(i));
 	}
 

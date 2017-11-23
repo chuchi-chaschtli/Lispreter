@@ -4,9 +4,9 @@
 package interpreter.parser.prim;
 
 import interpreter.exception.FuncDefException;
-import interpreter.parser.Atom;
 import interpreter.parser.Environment;
 import interpreter.parser.Node;
+import interpreter.parser.NodeFactory;
 import interpreter.parser.SExpression;
 import interpreter.parser.func.ClosureState;
 import interpreter.util.Pat;
@@ -36,7 +36,7 @@ public final class ListFuncs implements PrimitiveMarker {
 		} else {
 			sexp = new SExpression(n.eval());
 		}
-		return Node.makeNode(sexp.getDataTokens());
+		return NodeFactory.makeNode(sexp.getDataTokens());
 	}
 
 	@Primitive(aliases = { "defun" })
@@ -51,13 +51,13 @@ public final class ListFuncs implements PrimitiveMarker {
 		}
 
 		SExpression dTokens = new SExpression(sexp.getDataTokens());
-		Node formals = Node.makeNode(dTokens.getAddrTokens());
-		Node body = Node.makeNode(new SExpression(dTokens.getDataTokens())
-				.getAddrTokens());
+		Node formals = NodeFactory.makeNode(dTokens.getAddrTokens());
+		Node body = NodeFactory.makeNode(new SExpression(dTokens
+				.getDataTokens()).getAddrTokens());
 
 		Environment.getInstance().registerFunc(name, formals, body);
 
-		return new Atom(name);
+		return NodeFactory.makeNode(name);
 	}
 
 	@Primitive(aliases = { "lambda", "λ" })
@@ -75,7 +75,7 @@ public final class ListFuncs implements PrimitiveMarker {
 			SExpression nested = new SExpression(data);
 			env.registerAnon(nested.getAddr(), nested.getData());
 			ClosureState.setNextValue(addr.toString());
-			return new Atom("lambda");
+			return NodeFactory.LAMBDA;
 		}
 		return env.execLamb(ClosureState.getNextNode(), data);
 	}
@@ -106,10 +106,10 @@ public final class ListFuncs implements PrimitiveMarker {
 	@Primitive(aliases = "length")
 	public static Node length(Node n) {
 		if (!n.isList()) {
-			return Node.makeNode(0);
+			return NodeFactory.makeNode(0);
 		}
 		SExpression sexp = new SExpression(n);
-		return Node.makeNode(1 + Integer.valueOf(length(sexp.getData())
+		return NodeFactory.makeNode(1 + Integer.valueOf(length(sexp.getData())
 				.toString()));
 	}
 
@@ -136,7 +136,8 @@ public final class ListFuncs implements PrimitiveMarker {
 	@Primitive(aliases = "if")
 	public static Node ifelse(SExpression sexp) {
 		SExpression dTokens = new SExpression(sexp.getDataTokens());
-		if (Node.makeNode(sexp.getAddrTokens()).eval().toString().equals("T")) {
+		if (NodeFactory.makeNode(sexp.getAddrTokens()).eval().toString()
+				.equals("T")) {
 			return dTokens.getAddr().eval(true);
 		}
 		return new SExpression(dTokens.getData()).getAddr().eval(true);

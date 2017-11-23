@@ -3,8 +3,8 @@
  */
 package interpreter.parser.prim;
 
-import interpreter.parser.Atom;
 import interpreter.parser.Node;
+import interpreter.parser.NodeFactory;
 import interpreter.parser.SExpression;
 import interpreter.util.Pat;
 
@@ -16,12 +16,12 @@ public final class BoolFuncs implements PrimitiveMarker {
 
 	@Primitive(aliases = { "T", "true" }, sexpRequired = false)
 	public static Node t() {
-		return new Atom(true);
+		return NodeFactory.TRUE;
 	}
 
 	@Primitive(aliases = { "NIL", "false" }, sexpRequired = false)
 	public static Node nil() {
-		return new Atom(false);
+		return NodeFactory.FALSE;
 	}
 
 	/**
@@ -37,7 +37,7 @@ public final class BoolFuncs implements PrimitiveMarker {
 	 */
 	@Primitive(aliases = { "eq", "equalp", "=" })
 	public static Node eq(SExpression sexp) {
-		return Node.makeNode(sexp.getAddr().eval(true).toString()
+		return NodeFactory.makeNode(sexp.getAddr().eval(true).toString()
 				.equals(sexp.getData().eval(true).toString()));
 	}
 
@@ -53,23 +53,15 @@ public final class BoolFuncs implements PrimitiveMarker {
 		Node addr = sexp.getAddr();
 		boolean bool = addr.eval().toString().equals("NIL");
 		if (addr.isList()) {
-			bool = new SExpression(addr).getData().eval(true).toString().equals("NIL");
+			bool = new SExpression(addr).getData().eval(true).toString()
+					.equals("NIL");
 		}
-		return Node.makeNode(bool);
+		return NodeFactory.makeNode(bool);
 	}
 
 	@Primitive(aliases = { "atom" })
 	public static Node atom(SExpression sexp) {
-		return Node.makeNode(Pat.LITERAL.matches(sexp.getAddr().eval()
+		return NodeFactory.makeNode(Pat.LITERAL.matches(sexp.getAddr().eval()
 				.toString()));
-	}
-
-	public static Node boolFuncFactory(String alias) {
-		if (alias.matches("NIL|false")) {
-			return nil();
-		} else if (alias.matches("T|true")) {
-			return t();
-		}
-		return null;
 	}
 }
