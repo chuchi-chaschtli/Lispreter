@@ -22,11 +22,11 @@ public final class Tree {
 	 * @param outer
 	 *            a List of Strings.
 	 */
-	protected Tree(List<String> outer) {
+	Tree(List<String> outer) {
 		root = NodeFactory.makeNode(outer);
 	}
 
-	protected String eval() {
+	String eval() {
 		return root.eval().toString();
 	}
 
