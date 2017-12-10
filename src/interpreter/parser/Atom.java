@@ -7,7 +7,7 @@ import interpreter.exception.EnvironmentException;
 import interpreter.exception.NodeInitException;
 import interpreter.util.Pat;
 
-import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * Atoms are elements of a Lisp program which are strictly alphanumeric
@@ -67,7 +67,7 @@ public class Atom extends Node {
 
 	@Override
 	public boolean isList() {
-		return false;
+		return NodeFactory.FALSE.equals(this);
 	}
 
 	@Override
@@ -89,12 +89,12 @@ public class Atom extends Node {
 	}
 
 	@Override
-	public Node eval(boolean literal, Hashtable<String, Node> env) {
+	public Node eval(boolean literal, Map<String, Node> env) {
 		return eval();
 	}
 
 	@Override
-	public Node eval(Hashtable<String, Node> env) {
+	public Node eval(Map<String, Node> env) {
 		return eval();
 	}
 
