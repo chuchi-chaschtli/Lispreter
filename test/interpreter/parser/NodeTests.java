@@ -65,7 +65,7 @@ public class NodeTests {
 
 	@Test
 	public void testIsList() {
-		Assert.assertFalse(NodeFactory.FALSE.isList());
+		Assert.assertTrue(NodeFactory.FALSE.isList());
 		Assert.assertFalse(NodeFactory.makeNode(30).isList());
 		Assert.assertTrue(NodeFactory
 				.makeNode(
