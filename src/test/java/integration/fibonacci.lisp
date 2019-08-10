@@ -1,4 +1,4 @@
-;; /test/files/fibonacci.lisp -> /test/files/fib-output.txt
+;; /test/integration/fibonacci.lisp -> /test/integration/fib-output.txt
 ;; This is super inefficient, in general and when passed through the interpreter
 ;; But so far, the support isn't written to do this the dynamic way :(
 (defun fibonacci (n)

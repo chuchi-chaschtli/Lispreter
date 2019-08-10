@@ -1,4 +1,4 @@
-;; test/files/input.lisp -> corresponding output target : test/files/output.txt
+;; test/integration/input.lisp -> corresponding output target : test/integration/output.txt
 ; this is a comment.
 ; comments are ignored by the lexer.
 (sum 5 6 7)

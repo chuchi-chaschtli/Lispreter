@@ -1,5 +1,5 @@
 ;; higher-order function examples
-;; /test/files/ho-funcs.lisp -> /test/files/ho-funcs.txt
+;; /test/integration/ho-funcs.lisp -> /test/integration/ho-funcs.txt
 
 ;; [X -> Y] [List-of X] -> [List-of Y]
 (defun map (func lst)
