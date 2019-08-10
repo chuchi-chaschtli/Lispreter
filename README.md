@@ -2,7 +2,8 @@
 Open source Lisp to Java Interpreter
 
 ## Usage
-Makefile/Runfile (or Mavenization) coming soon.
+
+The project is mavenized and can be shaded as a maven dependency.
 
 For now, clone the repository and compile it.
 
