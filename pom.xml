@@ -9,14 +9,6 @@
     <groupId>interpreter</groupId>
     <artifactId>Lispreter</artifactId>
     <version>1.0</version>
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jm-version>${project.version}</jm-version>
@@ -52,4 +44,15 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- Dependencies -->
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
