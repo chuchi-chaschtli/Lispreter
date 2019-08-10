@@ -187,25 +187,35 @@ public class LexerParserTests {
 				.eval().toString(), "andmap\nNIL\nT\nfilter\n(1 2 5)\n(4 5)");
 	}
 
-	// @Test
-	// public void testRelationalOps() {
-	// Lexer l;
-	// try {
-	// StringBuilder builder = new StringBuilder();
-	// l = new Lexer("(less 5 6 4)");
-	// new Parser(l.getTokens()).eval(builder);
-	// l = new Lexer("(less 5 6)");
-	// new Parser(l.getTokens()).eval(builder);
-	// l = new Lexer("(less 6 5)");
-	// new Parser(l.getTokens()).eval(builder);
-	// l = new Lexer("(less 5 6 4 7)");
-	// new Parser(l.getTokens()).eval(builder);
-	// l = new Lexer("(less 4)");
-	// new Parser(l.getTokens()).eval();
-	// Assert.assertEquals(builder.toString(), "NIL\nT\nNIL\nNIL\n");
-	// }
-	// catch (Exception e) {
-	// System.out.println("ERROR during test occurred");
-	// }
-	// }
+	 @Test
+	 public void testRelationalOps() {
+		 Lexer l;
+
+		 StringBuilder builder = new StringBuilder();
+
+		 l = new Lexer("(less 5 6 4)");
+		 new Parser(l.getTokens(), builder).eval();
+		 builder.append("\n");
+
+		 l = new Lexer("(less 5 6)");
+		 new Parser(l.getTokens(), builder).eval();
+		 builder.append("\n");
+
+		 l = new Lexer("(less 6 5)");
+		 new Parser(l.getTokens(), builder).eval();
+		 builder.append("\n");
+
+		 l = new Lexer("(less 5 6 4 7)");
+		 new Parser(l.getTokens(), builder).eval();
+		 builder.append("\n");
+
+		 Assert.assertEquals(builder.toString(), "NIL\nT\nNIL\nNIL\n");
+	 }
+
+	 @Test(expected = NullPointerException.class)
+     public void testRelationalOpsThrowsErrorNotEnoughParameters() {
+         StringBuilder builder = new StringBuilder();
+         Lexer l = new Lexer("(less 5)");
+         new Parser(l.getTokens(), builder).eval();
+     }
 }
